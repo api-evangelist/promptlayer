@@ -1,0 +1,218 @@
+{
+  "info": {
+    "_postman_id": "b7e1f3a2-9c4d-4f21-8b6e-2a5c9d7e1f04",
+    "name": "PromptLayer API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "REST API for PromptLayer, a prompt engineering, prompt management, and LLM observability platform. Authenticate every request with the X-API-KEY header.\n\nContact Support:\n Name: PromptLayer Support\n Email: hello@promptlayer.com",
+      "type": "text/plain"
+    }
+  },
+  "auth": {
+    "type": "apikey",
+    "apikey": [
+      { "key": "key", "value": "X-API-KEY" },
+      { "key": "value", "value": "{{apiKey}}" },
+      { "key": "in", "value": "header" }
+    ]
+  },
+  "variable": [
+    { "type": "string", "value": "https://api.promptlayer.com", "key": "baseUrl" },
+    { "type": "string", "value": "", "key": "apiKey" }
+  ],
+  "item": [
+    {
+      "name": "Logging & Tracking",
+      "item": [
+        {
+          "name": "Log an LLM request",
+          "request": {
+            "method": "POST",
+            "header": [{ "key": "Content-Type", "value": "application/json" }],
+            "url": { "raw": "{{baseUrl}}/log-request", "host": ["{{baseUrl}}"], "path": ["log-request"] },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"provider\": \"openai\",\n  \"model\": \"gpt-4o\",\n  \"input\": {},\n  \"output\": {},\n  \"request_start_time\": \"2026-06-20T00:00:00Z\",\n  \"request_end_time\": \"2026-06-20T00:00:01Z\",\n  \"tags\": [],\n  \"metadata\": {}\n}",
+              "options": { "raw": { "language": "json" } }
+            }
+          }
+        },
+        {
+          "name": "Track prompt for a request",
+          "request": {
+            "method": "POST",
+            "header": [{ "key": "Content-Type", "value": "application/json" }],
+            "url": { "raw": "{{baseUrl}}/rest/track-prompt", "host": ["{{baseUrl}}"], "path": ["rest", "track-prompt"] },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"prompt_name\": \"support-response\",\n  \"request_id\": 12345,\n  \"prompt_input_variables\": {},\n  \"label\": \"prod\"\n}",
+              "options": { "raw": { "language": "json" } }
+            }
+          }
+        },
+        {
+          "name": "Track score for a request",
+          "request": {
+            "method": "POST",
+            "header": [{ "key": "Content-Type", "value": "application/json" }],
+            "url": { "raw": "{{baseUrl}}/rest/track-score", "host": ["{{baseUrl}}"], "path": ["rest", "track-score"] },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"request_id\": 12345,\n  \"score\": 100,\n  \"name\": \"default\"\n}",
+              "options": { "raw": { "language": "json" } }
+            }
+          }
+        },
+        {
+          "name": "Track metadata for a request",
+          "request": {
+            "method": "POST",
+            "header": [{ "key": "Content-Type", "value": "application/json" }],
+            "url": { "raw": "{{baseUrl}}/rest/track-metadata", "host": ["{{baseUrl}}"], "path": ["rest", "track-metadata"] },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"request_id\": 12345,\n  \"metadata\": {\n    \"user_id\": \"abc\"\n  }\n}",
+              "options": { "raw": { "language": "json" } }
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "Prompt Registry",
+      "item": [
+        {
+          "name": "Get a prompt template",
+          "request": {
+            "method": "POST",
+            "header": [{ "key": "Content-Type", "value": "application/json" }],
+            "url": { "raw": "{{baseUrl}}/prompt-templates/:identifier", "host": ["{{baseUrl}}"], "path": ["prompt-templates", ":identifier"], "variable": [{ "key": "identifier", "value": "support-response" }] },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"label\": \"prod\",\n  \"provider\": \"openai\",\n  \"input_variables\": {}\n}",
+              "options": { "raw": { "language": "json" } }
+            }
+          }
+        },
+        {
+          "name": "Publish a prompt template version",
+          "request": {
+            "method": "POST",
+            "header": [{ "key": "Content-Type", "value": "application/json" }],
+            "url": { "raw": "{{baseUrl}}/rest/prompt-templates", "host": ["{{baseUrl}}"], "path": ["rest", "prompt-templates"] },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"prompt_template\": {\n    \"prompt_name\": \"support-response\",\n    \"tags\": []\n  },\n  \"prompt_version\": {\n    \"prompt_template\": {},\n    \"commit_message\": \"Initial version\"\n  },\n  \"release_labels\": [\"prod\"]\n}",
+              "options": { "raw": { "language": "json" } }
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "Evaluations & Datasets",
+      "item": [
+        {
+          "name": "List evaluation reports",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": { "raw": "{{baseUrl}}/evaluations", "host": ["{{baseUrl}}"], "path": ["evaluations"] }
+          }
+        },
+        {
+          "name": "Create an evaluation report",
+          "request": {
+            "method": "POST",
+            "header": [{ "key": "Content-Type", "value": "application/json" }],
+            "url": { "raw": "{{baseUrl}}/evaluations", "host": ["{{baseUrl}}"], "path": ["evaluations"] },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"name\": \"Regression run\",\n  \"dataset_id\": 1\n}",
+              "options": { "raw": { "language": "json" } }
+            }
+          }
+        },
+        {
+          "name": "Get an evaluation report",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": { "raw": "{{baseUrl}}/evaluations/:id", "host": ["{{baseUrl}}"], "path": ["evaluations", ":id"], "variable": [{ "key": "id", "value": "1" }] }
+          }
+        },
+        {
+          "name": "Run an evaluation report",
+          "request": {
+            "method": "POST",
+            "header": [],
+            "url": { "raw": "{{baseUrl}}/evaluations/:id/run", "host": ["{{baseUrl}}"], "path": ["evaluations", ":id", "run"], "variable": [{ "key": "id", "value": "1" }] }
+          }
+        },
+        {
+          "name": "Get an evaluation report score",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": { "raw": "{{baseUrl}}/evaluations/:id/score", "host": ["{{baseUrl}}"], "path": ["evaluations", ":id", "score"], "variable": [{ "key": "id", "value": "1" }] }
+          }
+        },
+        {
+          "name": "List datasets",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": { "raw": "{{baseUrl}}/datasets", "host": ["{{baseUrl}}"], "path": ["datasets"] }
+          }
+        }
+      ]
+    },
+    {
+      "name": "Spans & Traces",
+      "item": [
+        {
+          "name": "Ingest spans in bulk",
+          "request": {
+            "method": "POST",
+            "header": [{ "key": "Content-Type", "value": "application/json" }],
+            "url": { "raw": "{{baseUrl}}/spans-bulk", "host": ["{{baseUrl}}"], "path": ["spans-bulk"] },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"spans\": [],\n  \"close_after\": false\n}",
+              "options": { "raw": { "language": "json" } }
+            }
+          }
+        },
+        {
+          "name": "Ingest OTLP traces",
+          "request": {
+            "method": "POST",
+            "header": [{ "key": "Content-Type", "value": "application/json" }],
+            "url": { "raw": "{{baseUrl}}/otlp/v1/traces", "host": ["{{baseUrl}}"], "path": ["otlp", "v1", "traces"] },
+            "body": {
+              "mode": "raw",
+              "raw": "{}",
+              "options": { "raw": { "language": "json" } }
+            }
+          }
+        },
+        {
+          "name": "Get a trace",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": { "raw": "{{baseUrl}}/traces/:id", "host": ["{{baseUrl}}"], "path": ["traces", ":id"], "variable": [{ "key": "id", "value": "trace_123" }] }
+          }
+        },
+        {
+          "name": "Close a trace",
+          "request": {
+            "method": "POST",
+            "header": [],
+            "url": { "raw": "{{baseUrl}}/traces/:id/close", "host": ["{{baseUrl}}"], "path": ["traces", ":id", "close"], "variable": [{ "key": "id", "value": "trace_123" }] }
+          }
+        }
+      ]
+    }
+  ]
+}

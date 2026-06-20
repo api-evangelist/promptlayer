@@ -1,0 +1,217 @@
+specification: API Commons Plans
+specificationVersion: '0.1'
+schema: https://raw.githubusercontent.com/api-evangelist/interface-research/main/schema/api-commons.yml#/$defs/Plans
+provider: PromptLayer
+providerId: promptlayer
+created: '2026-06-20'
+modified: '2026-06-20'
+reconciled: true
+tags:
+- AI
+- LLM
+- Prompt Engineering
+- Prompt Management
+- Observability
+- Evaluation
+- Plans
+description: >-
+  PromptLayer uses a freemium, seat-plus-usage pricing model. A Free tier covers
+  small projects, Pro and Team are flat monthly subscriptions with included
+  request volumes and pay-as-you-go overage per logged request (transaction), and
+  Enterprise is custom. Higher tiers raise request volumes, eval cell execution
+  allowances, dataset size caps, seat counts, and add webhooks, RBAC, deployment
+  approvals, HIPAA/BAA, and self-hosted or single-tenant deployment options.
+notes: >-
+  Prices and included volumes are as published on the PromptLayer pricing page
+  and may change; verify current limits at promptlayer.com/pricing. Overage is
+  billed per logged request (transaction).
+sources:
+- https://www.promptlayer.com/pricing
+- https://docs.promptlayer.com
+plans:
+- id: promptlayer-free
+  name: Free
+  type: free
+  description: >-
+    Free tier for small projects with a single workspace and capped monthly
+    request and evaluation volumes.
+  entries:
+  - label: Included Requests
+    name: requests
+    type: included
+    metric: requests
+    limit: 2500
+    timeFrame: month
+    geo: global
+    unit: 1
+    price: $0
+    userMultiplied: false
+  - label: Users
+    name: users
+    type: included
+    metric: seats
+    limit: 5
+    timeFrame: month
+    geo: global
+    unit: 1
+    price: $0
+    userMultiplied: false
+  - label: Eval Cell Executions
+    name: eval_cell_executions
+    type: included
+    metric: executions
+    limit: 250
+    timeFrame: month
+    geo: global
+    unit: 1
+    price: $0
+    userMultiplied: false
+  elements:
+  - name: 1 Workspace
+  - name: 10MB Dataset Max
+  - name: 10 Daily Playground Runs
+  - name: Prompt Registry
+  - name: Request Logging
+- id: promptlayer-pro
+  name: Pro
+  type: subscription
+  description: >-
+    Flat monthly subscription with unlimited playgrounds and workspaces, the
+    base included request volume, and pay-as-you-go overage per request.
+  entries:
+  - label: Subscription
+    name: subscription
+    type: flat
+    metric: subscription
+    limit: 1
+    timeFrame: month
+    geo: global
+    unit: 1
+    price: $49 per month
+    userMultiplied: false
+  - label: Included Requests
+    name: requests
+    type: included
+    metric: requests
+    limit: 2500
+    timeFrame: month
+    geo: global
+    unit: 1
+    price: included
+    userMultiplied: false
+  - label: Request Overage
+    name: request_overage
+    type: usage
+    metric: requests
+    limit: -1
+    timeFrame: month
+    geo: global
+    unit: 1
+    price: $0.003 per request
+    userMultiplied: false
+  - label: Users
+    name: users
+    type: included
+    metric: seats
+    limit: 5
+    timeFrame: month
+    geo: global
+    unit: 1
+    price: included
+    userMultiplied: false
+  elements:
+  - name: Unlimited Playgrounds
+  - name: Unlimited Workspaces
+  - name: 150MB Dataset Max
+  - name: Prompt Registry
+  - name: Evaluations
+- id: promptlayer-team
+  name: Team
+  type: subscription
+  description: >-
+    Flat monthly subscription for teams with higher included request and eval
+    volumes, larger datasets, webhooks, and lower per-request overage.
+  entries:
+  - label: Subscription
+    name: subscription
+    type: flat
+    metric: subscription
+    limit: 1
+    timeFrame: month
+    geo: global
+    unit: 1
+    price: $500 per month
+    userMultiplied: false
+  - label: Included Requests
+    name: requests
+    type: included
+    metric: requests
+    limit: 100000
+    timeFrame: month
+    geo: global
+    unit: 1
+    price: included
+    userMultiplied: false
+  - label: Request Overage
+    name: request_overage
+    type: usage
+    metric: requests
+    limit: -1
+    timeFrame: month
+    geo: global
+    unit: 1
+    price: $0.002 per request
+    userMultiplied: false
+  - label: Users
+    name: users
+    type: included
+    metric: seats
+    limit: 25
+    timeFrame: month
+    geo: global
+    unit: 1
+    price: included
+    userMultiplied: false
+  - label: Eval Cell Executions
+    name: eval_cell_executions
+    type: included
+    metric: executions
+    limit: 7500
+    timeFrame: month
+    geo: global
+    unit: 1
+    price: included
+    userMultiplied: false
+  elements:
+  - name: Webhooks
+  - name: Unlimited Playgrounds
+  - name: Unlimited Workspaces
+  - name: 1GB Dataset Max
+- id: promptlayer-enterprise
+  name: Enterprise
+  type: enterprise
+  description: >-
+    Custom plan with unlimited users, custom request volumes, role-based access
+    controls, deployment approvals, HIPAA with BAA, data retention control, and
+    self-hosted or managed single-tenant deployment. Contact sales.
+  entries:
+  - label: Enterprise Agreement
+    name: enterprise
+    type: flat
+    metric: contract
+    limit: -1
+    timeFrame: year
+    geo: global
+    unit: 1
+    price: contact sales
+    userMultiplied: false
+  elements:
+  - name: Role Based Access Controls
+  - name: Deployment Approvals
+  - name: HIPAA with BAA
+  - name: Data Retention Control
+  - name: Self-Hosted / Single-Tenant
+  - name: Dedicated Support
+maintainers:
+- FN: Kin Lane
+  email: kin@apievangelist.com

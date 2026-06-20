@@ -1,0 +1,119 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "PromptLayer API",
+    "version": "1.0"
+  },
+  "request": {
+    "auth": {
+      "type": "apikey",
+      "apikey": {
+        "key": "X-API-KEY",
+        "value": "{{apiKey}}",
+        "in": "header"
+      }
+    }
+  },
+  "items": [
+    {
+      "info": { "name": "Logging & Tracking", "type": "folder" },
+      "items": [
+        {
+          "info": { "name": "Log an LLM request", "type": "http" },
+          "http": { "method": "POST", "url": "https://api.promptlayer.com/log-request", "body": { "type": "json", "data": "{}" } },
+          "docs": "Logs a provider-agnostic LLM request using the Prompt Blueprint format."
+        },
+        {
+          "info": { "name": "Track prompt for a request", "type": "http" },
+          "http": { "method": "POST", "url": "https://api.promptlayer.com/rest/track-prompt", "body": { "type": "json", "data": "{}" } },
+          "docs": "Associates a prompt template and input variables with a logged request."
+        },
+        {
+          "info": { "name": "Track score for a request", "type": "http" },
+          "http": { "method": "POST", "url": "https://api.promptlayer.com/rest/track-score", "body": { "type": "json", "data": "{}" } },
+          "docs": "Attaches a 0-100 score to a logged request."
+        },
+        {
+          "info": { "name": "Track metadata for a request", "type": "http" },
+          "http": { "method": "POST", "url": "https://api.promptlayer.com/rest/track-metadata", "body": { "type": "json", "data": "{}" } },
+          "docs": "Attaches a custom metadata dictionary to a logged request."
+        }
+      ]
+    },
+    {
+      "info": { "name": "Prompt Registry", "type": "folder" },
+      "items": [
+        {
+          "info": { "name": "Get a prompt template", "type": "http" },
+          "http": { "method": "POST", "url": "https://api.promptlayer.com/prompt-templates/{identifier}", "body": { "type": "json", "data": "{}" } },
+          "docs": "Retrieves a prompt template by name or id, resolving version or release label."
+        },
+        {
+          "info": { "name": "Publish a prompt template version", "type": "http" },
+          "http": { "method": "POST", "url": "https://api.promptlayer.com/rest/prompt-templates", "body": { "type": "json", "data": "{}" } },
+          "docs": "Creates a new prompt template or version with optional release labels."
+        }
+      ]
+    },
+    {
+      "info": { "name": "Evaluations & Datasets", "type": "folder" },
+      "items": [
+        {
+          "info": { "name": "List evaluation reports", "type": "http" },
+          "http": { "method": "GET", "url": "https://api.promptlayer.com/evaluations" },
+          "docs": "Lists evaluation reports in the workspace."
+        },
+        {
+          "info": { "name": "Create an evaluation report", "type": "http" },
+          "http": { "method": "POST", "url": "https://api.promptlayer.com/evaluations", "body": { "type": "json", "data": "{}" } },
+          "docs": "Creates a new evaluation report over a dataset."
+        },
+        {
+          "info": { "name": "Get an evaluation report", "type": "http" },
+          "http": { "method": "GET", "url": "https://api.promptlayer.com/evaluations/{id}" },
+          "docs": "Retrieves an evaluation report by id."
+        },
+        {
+          "info": { "name": "Run an evaluation report", "type": "http" },
+          "http": { "method": "POST", "url": "https://api.promptlayer.com/evaluations/{id}/run" },
+          "docs": "Executes an evaluation report."
+        },
+        {
+          "info": { "name": "Get an evaluation report score", "type": "http" },
+          "http": { "method": "GET", "url": "https://api.promptlayer.com/evaluations/{id}/score" },
+          "docs": "Retrieves the score of an evaluation report."
+        },
+        {
+          "info": { "name": "List datasets", "type": "http" },
+          "http": { "method": "GET", "url": "https://api.promptlayer.com/datasets" },
+          "docs": "Lists evaluation datasets in the workspace."
+        }
+      ]
+    },
+    {
+      "info": { "name": "Spans & Traces", "type": "folder" },
+      "items": [
+        {
+          "info": { "name": "Ingest spans in bulk", "type": "http" },
+          "http": { "method": "POST", "url": "https://api.promptlayer.com/spans-bulk", "body": { "type": "json", "data": "{}" } },
+          "docs": "Atomically ingests a batch of OpenTelemetry-style spans."
+        },
+        {
+          "info": { "name": "Ingest OTLP traces", "type": "http" },
+          "http": { "method": "POST", "url": "https://api.promptlayer.com/otlp/v1/traces", "body": { "type": "json", "data": "{}" } },
+          "docs": "OpenTelemetry Protocol (OTLP) HTTP endpoint for ingesting traces."
+        },
+        {
+          "info": { "name": "Get a trace", "type": "http" },
+          "http": { "method": "GET", "url": "https://api.promptlayer.com/traces/{id}" },
+          "docs": "Retrieves a trace by id."
+        },
+        {
+          "info": { "name": "Close a trace", "type": "http" },
+          "http": { "method": "POST", "url": "https://api.promptlayer.com/traces/{id}/close" },
+          "docs": "Closes an open trace so no further spans can be appended."
+        }
+      ]
+    }
+  ]
+}

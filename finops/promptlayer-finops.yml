@@ -1,0 +1,113 @@
+specification: FinOps Framework
+specificationVersion: '1.0'
+schema: https://www.finops.org/framework/
+provider: PromptLayer
+providerId: promptlayer
+created: '2026-06-20'
+modified: '2026-06-20'
+reconciled: true
+tags:
+- AI
+- LLM
+- Prompt Engineering
+- Prompt Management
+- Observability
+- FinOps
+- Cost Management
+- FOCUS
+description: >-
+  FinOps view of PromptLayer spend. PromptLayer bills a flat monthly
+  subscription per paid plan (Pro, Team) plus pay-as-you-go overage per logged
+  request (transaction) above the included monthly volume, with additional
+  metered allowances for evaluation cell executions and dataset storage caps.
+  Enterprise is a custom contract. Cost is driven by logged request volume,
+  evaluation runs, and seat count rather than per-token inference, which is paid
+  to the underlying LLM providers separately.
+notes: >-
+  Subscription prices and overage rates are subject to change; verify against the
+  PromptLayer pricing page during reconciliation. LLM provider inference costs
+  are billed by the providers (OpenAI, Anthropic, etc.), not by PromptLayer.
+sources:
+- https://www.promptlayer.com/pricing
+- https://docs.promptlayer.com
+- https://focus.finops.org/focus-specification/v1-3/
+alignedWith:
+  framework: FinOps Foundation Framework
+  frameworkUrl: https://www.finops.org/framework/
+  dataSpec: FOCUS
+  dataSpecVersion: '1.3'
+  dataSpecUrl: https://focus.finops.org/focus-specification/v1-3/
+publisherName: PromptLayer
+serviceCategory: AI and Machine Learning
+billingModel:
+  pricingCategory: Subscription-Plus-Usage
+  billingFrequency: Monthly
+  billingCurrency: USD
+  chargeCategories:
+  - Purchase
+  - Usage
+  - Adjustment
+focusColumns:
+  ServiceName: PromptLayer
+  ServiceCategory: AI and Machine Learning
+  ProviderName: PromptLayer
+  PublisherName: PromptLayer
+  InvoiceIssuerName: PromptLayer
+  BillingCurrency: USD
+  ChargeCategory: Usage
+  PricingCategory: Subscription-Plus-Usage
+meters:
+- name: subscription
+  description: Flat monthly plan subscription (Pro $49/mo, Team $500/mo).
+  unit: months
+  aggregation: sum
+  dimensions:
+  - account
+  - plan
+- name: logged_requests
+  description: Logged LLM requests (transactions) within the included monthly plan volume.
+  unit: requests
+  aggregation: sum
+  dimensions:
+  - account
+  - workspace
+- name: request_overage
+  description: Logged requests beyond the included monthly volume, billed per request ($0.003 Pro, $0.002 Team).
+  unit: requests
+  aggregation: sum
+  dimensions:
+  - account
+  - workspace
+- name: eval_cell_executions
+  description: Evaluation cell executions consumed running evaluation reports.
+  unit: executions
+  aggregation: sum
+  dimensions:
+  - account
+  - workspace
+- name: dataset_storage
+  description: Dataset storage subject to per-plan size caps (10MB/150MB/1GB).
+  unit: bytes
+  aggregation: max
+  dimensions:
+  - account
+  - workspace
+- name: seats
+  description: Active user seats counted against per-plan user limits.
+  unit: seats
+  aggregation: max
+  dimensions:
+  - account
+  - plan
+principles:
+- name: Visibility
+  description: Track monthly logged-request volume and eval executions per workspace against included plan allowances.
+- name: Allocation
+  description: Use separate workspaces and tags/metadata per team or project; map logged requests to internal cost centers.
+- name: Optimization
+  description: Stay within included request volume, prune unnecessary logging, and batch evaluation runs to control eval cell execution spend; right-size the plan to actual request volume.
+- name: Accountability
+  description: Assign workspace owners; review monthly subscription, overage, and eval spend against budget.
+maintainers:
+- FN: Kin Lane
+  email: kin@apievangelist.com

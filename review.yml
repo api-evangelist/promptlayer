@@ -1,0 +1,80 @@
+aid: promptlayer
+name: PromptLayer
+review:
+  question: Does PromptLayer expose a documented public WebSocket or streaming (SSE) API?
+  answer: false
+  date: '2026-06-20'
+  reviewer: API Evangelist
+  asyncapiSpecCreated: false
+  asyncapiScopeNote: |
+    Per API Evangelist scope, HTTP Server-Sent Events (SSE) is in-scope for
+    AsyncAPI modeling and WebSocket would be. PromptLayer's documented REST API
+    exposes only request/response HTTPS endpoints under
+    https://api.promptlayer.com. The only streaming-adjacent surface is an OTLP
+    trace ingestion endpoint (POST /otlp/v1/traces), which is a synchronous
+    request/response HTTP ingest, not an SSE event stream or WebSocket. No
+    AsyncAPI document was created because no event-stream or bidirectional
+    transport is documented.
+findings:
+  summary: |
+    PromptLayer does not publish a documented public WebSocket or SSE streaming
+    API. All documented endpoints under https://api.promptlayer.com are
+    synchronous HTTPS REST calls authenticated with the X-API-KEY header.
+    Observability data (spans/traces) is ingested via batch HTTP POST
+    (/spans-bulk and the OTLP /otlp/v1/traces endpoint), not via a persistent
+    streaming connection. No realtime, bidirectional, or server-push transport
+    (ws:// or wss:// or text/event-stream) is documented.
+  transports:
+    - protocol: REST
+      scheme: https
+      baseURL: https://api.promptlayer.com
+      documented: true
+    - protocol: OTLP/HTTP
+      scheme: https
+      note: OpenTelemetry trace ingestion via POST /otlp/v1/traces. Synchronous HTTP ingest, not an event stream.
+      documented: true
+    - protocol: SSE
+      scheme: https
+      documented: false
+      note: No Server-Sent Events (text/event-stream) endpoint is documented.
+    - protocol: WebSocket
+      scheme: wss
+      documented: false
+      note: No WebSocket endpoint is documented in PromptLayer's API reference.
+  endpointsConfirmedRest:
+    - POST https://api.promptlayer.com/log-request
+    - POST https://api.promptlayer.com/rest/track-prompt
+    - POST https://api.promptlayer.com/rest/track-score
+    - POST https://api.promptlayer.com/rest/track-metadata
+    - POST https://api.promptlayer.com/prompt-templates/{identifier}
+    - POST https://api.promptlayer.com/rest/prompt-templates
+    - GET  https://api.promptlayer.com/evaluations
+    - POST https://api.promptlayer.com/evaluations
+    - GET  https://api.promptlayer.com/evaluations/{id}
+    - POST https://api.promptlayer.com/evaluations/{id}/run
+    - GET  https://api.promptlayer.com/evaluations/{id}/score
+    - GET  https://api.promptlayer.com/datasets
+    - POST https://api.promptlayer.com/spans-bulk
+    - POST https://api.promptlayer.com/otlp/v1/traces
+    - GET  https://api.promptlayer.com/traces/{id}
+    - POST https://api.promptlayer.com/traces/{id}/close
+sources:
+  - url: https://docs.promptlayer.com/reference/rest-api-reference
+    type: APIReference
+    note: REST API reference; all documented endpoints are HTTPS request/response.
+  - url: https://docs.promptlayer.com/reference/log-request
+    type: APIReference
+    note: log-request is a synchronous POST returning 201; no streaming.
+  - url: https://docs.promptlayer.com/reference/spans-bulk
+    type: APIReference
+    note: Spans are ingested via batch HTTP POST, not a persistent stream.
+  - url: https://docs.promptlayer.com/llms.txt
+    type: Documentation
+    note: Full endpoint index lists only REST and OTLP HTTP endpoints; no ws:// or SSE surface.
+actions:
+  asyncapiPath: null
+  apisYmlUpdated: true
+  reason: |
+    No WebSocket or SSE protocol surface exists in PromptLayer's documented API.
+    The OTLP traces endpoint is synchronous HTTP ingestion and is modeled in the
+    OpenAPI document rather than AsyncAPI. No AsyncAPI document was authored.

@@ -1,0 +1,76 @@
+specification: API Commons Rate Limits
+specificationVersion: '0.1'
+schema: https://raw.githubusercontent.com/api-evangelist/interface-research/main/schema/api-commons.yml#/$defs/RateLimits
+provider: PromptLayer
+providerId: promptlayer
+created: '2026-06-20'
+modified: '2026-06-20'
+reconciled: false
+tags:
+- AI
+- LLM
+- Prompt Engineering
+- Prompt Management
+- Observability
+- Rate Limiting
+- Quotas
+- Throttling
+description: >-
+  PromptLayer governs usage primarily through plan-based monthly request
+  (transaction) volumes rather than publicly documented per-minute request
+  ceilings. Included monthly request volumes vary by plan (2.5k Free/Pro,
+  100k Team, custom Enterprise) with pay-as-you-go overage above the included
+  amount. Evaluation cell executions and dataset sizes are also capped per plan.
+  Specific per-second / per-minute API throttling thresholds are not published
+  and are not reconciled in this artifact.
+notes: >-
+  Verify plan request volumes, eval execution allowances, and any per-endpoint
+  throttling against the PromptLayer pricing page and API reference on
+  reconciliation; values change as accounts move between Free, Pro, Team, and
+  Enterprise plans.
+sources:
+- https://www.promptlayer.com/pricing
+- https://docs.promptlayer.com/reference/rest-api-reference
+responseCodes:
+  throttled: 429
+limits:
+- name: Monthly Requests (Free)
+  scope: account
+  metric: requests
+  limit: 2500
+  notes: Included monthly logged requests on the Free plan; no overage.
+- name: Monthly Requests (Pro)
+  scope: account
+  metric: requests
+  limit: 2500
+  notes: Included monthly logged requests on Pro; overage billed at $0.003 per request.
+- name: Monthly Requests (Team)
+  scope: account
+  metric: requests
+  limit: 100000
+  notes: Included monthly logged requests on Team; overage billed at $0.002 per request.
+- name: Monthly Requests (Enterprise)
+  scope: account
+  metric: requests
+  limit: custom
+  notes: Custom request volumes negotiated per Enterprise agreement.
+- name: Eval Cell Executions
+  scope: account
+  metric: executions
+  limit: see provider documentation
+  notes: Capped per plan (250/mo Free, 7.5k+/mo Team); varies by tier.
+- name: Per-Endpoint API Throttling
+  scope: account
+  metric: requests
+  limit: see provider documentation
+  notes: Per-second/per-minute throttling thresholds are not publicly documented.
+policies:
+- name: Plan-Based Quotas
+  description: Usage allowances (requests, eval executions, dataset size) increase as accounts move from Free to Pro to Team to Enterprise.
+- name: Pay-as-you-go Overage
+  description: Requests beyond the included monthly volume are billed per request on paid plans.
+- name: Backoff Strategy
+  description: Clients should implement exponential backoff with jitter on 429 responses and honor Retry-After when present.
+maintainers:
+- FN: Kin Lane
+  email: kin@apievangelist.com
