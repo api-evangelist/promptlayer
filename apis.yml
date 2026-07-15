@@ -108,6 +108,8 @@ apis:
     retrieves and closes traces, and scopes all activity to PromptLayer workspaces
     for end-to-end observability of multi-step LLM and agent workflows.
 common:
+- type: AgenticAccess
+  url: agentic-access/promptlayer-agentic-access.yml
 - type: DomainSecurity
   url: security/promptlayer-domain-security.yml
 - type: Authentication
