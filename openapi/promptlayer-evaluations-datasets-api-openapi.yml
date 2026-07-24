@@ -1,0 +1,245 @@
+openapi: 3.0.1
+info:
+  title: PromptLayer Evaluations & Datasets API
+  description: 'REST API for PromptLayer, a prompt engineering, prompt management, and LLM observability platform. The API logs and tracks LLM requests, manages a versioned prompt registry with release labels, ingests OpenTelemetry-style spans and traces, and runs evaluations against datasets. All requests are authenticated with an `X-API-KEY` header. Note: some legacy tracking endpoints are served under the `/rest` path prefix while newer endpoints are served at the API root.'
+  termsOfService: https://www.promptlayer.com/terms-of-service
+  contact:
+    name: PromptLayer Support
+    email: hello@promptlayer.com
+  version: '1.0'
+servers:
+- url: https://api.promptlayer.com
+security:
+- ApiKeyAuth: []
+tags:
+- name: Evaluations & Datasets
+  description: Create, run, and score evaluation reports against datasets.
+paths:
+  /evaluations:
+    get:
+      operationId: listEvaluations
+      tags:
+      - Evaluations & Datasets
+      summary: List evaluation reports
+      description: Lists evaluation reports in the workspace.
+      parameters:
+      - name: workspace_id
+        in: query
+        required: false
+        schema:
+          type: integer
+      - name: per_page
+        in: query
+        required: false
+        schema:
+          type: integer
+      - name: page
+        in: query
+        required: false
+        schema:
+          type: integer
+      responses:
+        '200':
+          description: A list of evaluation reports
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/EvaluationList'
+        '401':
+          description: Unauthorized
+    post:
+      operationId: createEvaluation
+      tags:
+      - Evaluations & Datasets
+      summary: Create an evaluation report
+      description: Creates a new evaluation report (pipeline) over a dataset.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CreateEvaluationRequest'
+      responses:
+        '201':
+          description: Evaluation report created
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Evaluation'
+        '401':
+          description: Unauthorized
+        '422':
+          description: Validation error
+  /evaluations/{id}:
+    get:
+      operationId: getEvaluation
+      tags:
+      - Evaluations & Datasets
+      summary: Get an evaluation report
+      parameters:
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: integer
+      responses:
+        '200':
+          description: An evaluation report
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Evaluation'
+        '401':
+          description: Unauthorized
+        '404':
+          description: Not found
+  /evaluations/{id}/run:
+    post:
+      operationId: runEvaluation
+      tags:
+      - Evaluations & Datasets
+      summary: Run an evaluation report
+      description: Executes an evaluation report, scoring its rows against the configured columns.
+      parameters:
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: integer
+      responses:
+        '200':
+          description: Evaluation run started
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/SuccessMessage'
+        '401':
+          description: Unauthorized
+        '404':
+          description: Not found
+  /evaluations/{id}/score:
+    get:
+      operationId: getEvaluationScore
+      tags:
+      - Evaluations & Datasets
+      summary: Get an evaluation report score
+      parameters:
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: integer
+      responses:
+        '200':
+          description: Evaluation score
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/EvaluationScore'
+        '401':
+          description: Unauthorized
+        '404':
+          description: Not found
+  /datasets:
+    get:
+      operationId: listDatasets
+      tags:
+      - Evaluations & Datasets
+      summary: List datasets
+      description: Lists evaluation datasets in the workspace.
+      parameters:
+      - name: workspace_id
+        in: query
+        required: false
+        schema:
+          type: integer
+      responses:
+        '200':
+          description: A list of datasets
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/DatasetList'
+        '401':
+          description: Unauthorized
+components:
+  schemas:
+    CreateEvaluationRequest:
+      type: object
+      required:
+      - name
+      properties:
+        name:
+          type: string
+        dataset_id:
+          type: integer
+        workspace_id:
+          type: integer
+    EvaluationList:
+      type: object
+      properties:
+        items:
+          type: array
+          items:
+            $ref: '#/components/schemas/Evaluation'
+        total:
+          type: integer
+    Dataset:
+      type: object
+      properties:
+        id:
+          type: integer
+        name:
+          type: string
+        workspace_id:
+          type: integer
+        row_count:
+          type: integer
+    EvaluationScore:
+      type: object
+      properties:
+        id:
+          type: integer
+        score:
+          type: number
+        passed:
+          type: integer
+        failed:
+          type: integer
+    SuccessMessage:
+      type: object
+      properties:
+        success:
+          type: boolean
+        message:
+          type: string
+    DatasetList:
+      type: object
+      properties:
+        items:
+          type: array
+          items:
+            $ref: '#/components/schemas/Dataset'
+        total:
+          type: integer
+    Evaluation:
+      type: object
+      properties:
+        id:
+          type: integer
+        name:
+          type: string
+        status:
+          type: string
+        dataset_id:
+          type: integer
+        workspace_id:
+          type: integer
+        created_at:
+          type: string
+          format: date-time
+  securitySchemes:
+    ApiKeyAuth:
+      type: apiKey
+      in: header
+      name: X-API-KEY

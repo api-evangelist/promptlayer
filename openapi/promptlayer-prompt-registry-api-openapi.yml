@@ -1,0 +1,200 @@
+openapi: 3.0.1
+info:
+  title: PromptLayer Evaluations & Datasets Prompt Registry API
+  description: 'REST API for PromptLayer, a prompt engineering, prompt management, and LLM observability platform. The API logs and tracks LLM requests, manages a versioned prompt registry with release labels, ingests OpenTelemetry-style spans and traces, and runs evaluations against datasets. All requests are authenticated with an `X-API-KEY` header. Note: some legacy tracking endpoints are served under the `/rest` path prefix while newer endpoints are served at the API root.'
+  termsOfService: https://www.promptlayer.com/terms-of-service
+  contact:
+    name: PromptLayer Support
+    email: hello@promptlayer.com
+  version: '1.0'
+servers:
+- url: https://api.promptlayer.com
+security:
+- ApiKeyAuth: []
+tags:
+- name: Prompt Registry
+  description: Retrieve and publish versioned prompt templates.
+paths:
+  /prompt-templates/{identifier}:
+    post:
+      operationId: getPromptTemplate
+      tags:
+      - Prompt Registry
+      summary: Get a prompt template
+      description: Retrieves a prompt template by name or id, resolving an optional version or release label and optionally formatting it with provided input variables for a given provider and model.
+      parameters:
+      - name: identifier
+        in: path
+        required: true
+        description: The prompt name or prompt template id.
+        schema:
+          type: string
+      requestBody:
+        required: false
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/GetPromptTemplateRequest'
+      responses:
+        '200':
+          description: Prompt template
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PromptTemplate'
+        '401':
+          description: Unauthorized
+        '404':
+          description: Template not found
+  /rest/prompt-templates:
+    post:
+      operationId: publishPromptTemplate
+      tags:
+      - Prompt Registry
+      summary: Publish a prompt template version
+      description: Creates a new prompt template (or a new version of an existing one), optionally assigning release labels and external ids.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/PublishPromptTemplateRequest'
+      responses:
+        '200':
+          description: Prompt template published
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PublishPromptTemplateResponse'
+        '401':
+          description: Unauthorized
+        '409':
+          description: External id conflict
+        '422':
+          description: Validation error
+components:
+  schemas:
+    PromptBlueprint:
+      type: object
+      description: Prompt Blueprint payload, either a chat prompt (messages array) or a completion prompt (content string). Provider-agnostic representation.
+      additionalProperties: true
+    PublishPromptTemplateRequest:
+      type: object
+      required:
+      - prompt_template
+      - prompt_version
+      properties:
+        prompt_template:
+          type: object
+          required:
+          - prompt_name
+          properties:
+            prompt_name:
+              type: string
+              minLength: 1
+              maxLength: 512
+            tags:
+              type: array
+              items:
+                type: string
+            folder_id:
+              type: integer
+            workspace_id:
+              type: integer
+        prompt_version:
+          type: object
+          properties:
+            prompt_template:
+              $ref: '#/components/schemas/PromptBlueprint'
+            commit_message:
+              type: string
+              maxLength: 72
+            metadata:
+              type: object
+              additionalProperties: true
+        release_labels:
+          type: array
+          items:
+            type: string
+        external_ids:
+          type: array
+          items:
+            type: object
+            properties:
+              source:
+                type: string
+              external_id:
+                type: string
+    PublishPromptTemplateResponse:
+      type: object
+      properties:
+        id:
+          type: integer
+        prompt_name:
+          type: string
+        prompt_version_id:
+          type: integer
+        version_number:
+          type: integer
+        tags:
+          type: array
+          items:
+            type: string
+        release_labels:
+          type: array
+          items:
+            type: string
+        prompt_template:
+          $ref: '#/components/schemas/PromptBlueprint'
+        metadata:
+          type: object
+          additionalProperties: true
+        commit_message:
+          type: string
+    GetPromptTemplateRequest:
+      type: object
+      properties:
+        version:
+          type: integer
+          minimum: 1
+        label:
+          type: string
+          description: Release label such as "prod" or "staging".
+        provider:
+          type: string
+          enum:
+          - openai
+          - anthropic
+        input_variables:
+          type: object
+          additionalProperties:
+            type: string
+        model:
+          type: string
+        model_parameter_overrides:
+          type: object
+          additionalProperties: true
+    PromptTemplate:
+      type: object
+      properties:
+        id:
+          type: integer
+        prompt_name:
+          type: string
+        prompt_template:
+          $ref: '#/components/schemas/PromptBlueprint'
+        metadata:
+          type: object
+          additionalProperties: true
+        commit_message:
+          type: string
+        llm_kwargs:
+          type: object
+          additionalProperties: true
+        version:
+          type: integer
+  securitySchemes:
+    ApiKeyAuth:
+      type: apiKey
+      in: header
+      name: X-API-KEY
