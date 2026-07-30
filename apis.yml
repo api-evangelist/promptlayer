@@ -6,7 +6,20 @@ description: PromptLayer is a prompt engineering, prompt management, and LLM obs
   platform. Its REST API logs and tracks LLM requests, manages a versioned prompt
   registry with release labels, ingests OpenTelemetry-style spans and traces, and runs
   evaluations and datasets so teams can monitor, debug, and improve their LLM applications.
-image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/apis-json-logo.jpg
+accessModel:
+  pricing: freemium
+  onboarding: self-serve
+  trial: false
+  try_now: true
+  public: false
+  label: Freemium · Self-serve signup
+  confidence: high
+  source:
+  - plans
+  - authentication
+  generated: '2026-07-22'
+  method: derived
+image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/icons/promptlayer.png
 tags:
 - AI
 - LLM
@@ -18,95 +31,118 @@ created: '2026-06-20'
 modified: '2026-06-20'
 specificationVersion: '0.19'
 apis:
-- aid: promptlayer:request-logging-tracking
-  name: PromptLayer Request Logging & Tracking API
-  tags:
-  - Logging
-  - Tracking
-  - Requests
-  - Observability
-  image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/apis-json-logo.jpg
+- aid: promptlayer:promptlayer-evaluations-datasets-api
+  name: PromptLayer Evaluations & Datasets API
+  description: Create, run, and score evaluation reports against datasets.
   humanURL: https://docs.promptlayer.com/reference/rest-api-reference
   baseURL: https://api.promptlayer.com
+  tags:
+  - Evaluations & Datasets
   properties:
-  - url: https://docs.promptlayer.com/why-promptlayer/how-it-works
-    type: Documentation
-  - url: https://docs.promptlayer.com/reference/log-request
-    type: APIReference
-  - url: openapi/promptlayer-openapi.yml
-    type: OpenAPI
-  - url: collections/promptlayer.postman_collection.json
-    type: PostmanCollection
-  description: Logs and tracks LLM requests independent of provider via log-request,
-    associates prompt templates and input variables with a request (track-prompt),
-    and attaches scores (track-score) and custom metadata (track-metadata) to logged
-    requests for monitoring, debugging, and replay.
-- aid: promptlayer:prompt-registry-templates
-  name: PromptLayer Prompt Registry & Templates API
+  - type: OpenAPI
+    url: openapi/promptlayer-evaluations-datasets-api-openapi.yml
+  - type: Documentation
+    url: https://docs.promptlayer.com/why-promptlayer/how-it-works
+  - type: APIReference
+    url: https://docs.promptlayer.com/reference/log-request
+  - type: PostmanCollection
+    url: collections/promptlayer.postman_collection.json
+  - type: Documentation
+    url: https://docs.promptlayer.com/features/prompt-registry
+  - type: APIReference
+    url: https://docs.promptlayer.com/reference/get-prompt-template
+  - type: Documentation
+    url: https://docs.promptlayer.com/features/evaluations/overview
+  - type: APIReference
+    url: https://docs.promptlayer.com/reference/list-evaluations
+  - type: Documentation
+    url: https://docs.promptlayer.com/features/tracing
+  - type: APIReference
+    url: https://docs.promptlayer.com/reference/spans-bulk
+- aid: promptlayer:promptlayer-logging-tracking-api
+  name: PromptLayer Logging & Tracking API
+  description: Log and track LLM requests, scores, and metadata.
+  humanURL: https://docs.promptlayer.com/reference/rest-api-reference
+  baseURL: https://api.promptlayer.com
+  tags:
+  - Logging & Tracking
+  properties:
+  - type: OpenAPI
+    url: openapi/promptlayer-logging-tracking-api-openapi.yml
+  - type: Documentation
+    url: https://docs.promptlayer.com/why-promptlayer/how-it-works
+  - type: APIReference
+    url: https://docs.promptlayer.com/reference/log-request
+  - type: PostmanCollection
+    url: collections/promptlayer.postman_collection.json
+  - type: Documentation
+    url: https://docs.promptlayer.com/features/prompt-registry
+  - type: APIReference
+    url: https://docs.promptlayer.com/reference/get-prompt-template
+  - type: Documentation
+    url: https://docs.promptlayer.com/features/evaluations/overview
+  - type: APIReference
+    url: https://docs.promptlayer.com/reference/list-evaluations
+  - type: Documentation
+    url: https://docs.promptlayer.com/features/tracing
+  - type: APIReference
+    url: https://docs.promptlayer.com/reference/spans-bulk
+- aid: promptlayer:promptlayer-prompt-registry-api
+  name: PromptLayer Prompt Registry API
+  description: Retrieve and publish versioned prompt templates.
+  humanURL: https://docs.promptlayer.com/reference/rest-api-reference
+  baseURL: https://api.promptlayer.com
   tags:
   - Prompt Registry
-  - Templates
-  - Versioning
-  - Release Labels
-  image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/apis-json-logo.jpg
-  humanURL: https://docs.promptlayer.com/features/prompt-registry
-  baseURL: https://api.promptlayer.com
   properties:
-  - url: https://docs.promptlayer.com/features/prompt-registry
-    type: Documentation
-  - url: https://docs.promptlayer.com/reference/get-prompt-template
-    type: APIReference
-  - url: openapi/promptlayer-openapi.yml
-    type: OpenAPI
-  - url: collections/promptlayer.postman_collection.json
-    type: PostmanCollection
-  description: Retrieves rendered or raw prompt templates by name or id with version
-    and release-label resolution, publishes new prompt template versions, and manages
-    release labels so prompts can be versioned and deployed without code changes.
-- aid: promptlayer:evaluations-datasets
-  name: PromptLayer Evaluations & Datasets API
-  tags:
-  - Evaluations
-  - Datasets
-  - Reports
-  - Scoring
-  image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/apis-json-logo.jpg
-  humanURL: https://docs.promptlayer.com/features/evaluations/overview
-  baseURL: https://api.promptlayer.com
-  properties:
-  - url: https://docs.promptlayer.com/features/evaluations/overview
-    type: Documentation
-  - url: https://docs.promptlayer.com/reference/list-evaluations
-    type: APIReference
-  - url: openapi/promptlayer-openapi.yml
-    type: OpenAPI
-  - url: collections/promptlayer.postman_collection.json
-    type: PostmanCollection
-  description: Creates, lists, runs, and scores evaluation reports against datasets,
-    and manages evaluation datasets and their rows built from uploaded files or request
-    history, enabling systematic, batch testing of prompt and model changes.
-- aid: promptlayer:spans-traces
+  - type: OpenAPI
+    url: openapi/promptlayer-prompt-registry-api-openapi.yml
+  - type: Documentation
+    url: https://docs.promptlayer.com/why-promptlayer/how-it-works
+  - type: APIReference
+    url: https://docs.promptlayer.com/reference/log-request
+  - type: PostmanCollection
+    url: collections/promptlayer.postman_collection.json
+  - type: Documentation
+    url: https://docs.promptlayer.com/features/prompt-registry
+  - type: APIReference
+    url: https://docs.promptlayer.com/reference/get-prompt-template
+  - type: Documentation
+    url: https://docs.promptlayer.com/features/evaluations/overview
+  - type: APIReference
+    url: https://docs.promptlayer.com/reference/list-evaluations
+  - type: Documentation
+    url: https://docs.promptlayer.com/features/tracing
+  - type: APIReference
+    url: https://docs.promptlayer.com/reference/spans-bulk
+- aid: promptlayer:promptlayer-spans-traces-api
   name: PromptLayer Spans & Traces API
-  tags:
-  - Tracing
-  - Spans
-  - OpenTelemetry
-  - Workspaces
-  image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/apis-json-logo.jpg
-  humanURL: https://docs.promptlayer.com/features/tracing
+  description: Ingest spans and manage traces for LLM observability.
+  humanURL: https://docs.promptlayer.com/reference/rest-api-reference
   baseURL: https://api.promptlayer.com
+  tags:
+  - Spans & Traces
   properties:
-  - url: https://docs.promptlayer.com/features/tracing
-    type: Documentation
-  - url: https://docs.promptlayer.com/reference/spans-bulk
-    type: APIReference
-  - url: openapi/promptlayer-openapi.yml
-    type: OpenAPI
-  - url: collections/promptlayer.postman_collection.json
-    type: PostmanCollection
-  description: Ingests OpenTelemetry-style spans in bulk and via an OTLP traces endpoint,
-    retrieves and closes traces, and scopes all activity to PromptLayer workspaces
-    for end-to-end observability of multi-step LLM and agent workflows.
+  - type: OpenAPI
+    url: openapi/promptlayer-spans-traces-api-openapi.yml
+  - type: Documentation
+    url: https://docs.promptlayer.com/why-promptlayer/how-it-works
+  - type: APIReference
+    url: https://docs.promptlayer.com/reference/log-request
+  - type: PostmanCollection
+    url: collections/promptlayer.postman_collection.json
+  - type: Documentation
+    url: https://docs.promptlayer.com/features/prompt-registry
+  - type: APIReference
+    url: https://docs.promptlayer.com/reference/get-prompt-template
+  - type: Documentation
+    url: https://docs.promptlayer.com/features/evaluations/overview
+  - type: APIReference
+    url: https://docs.promptlayer.com/reference/list-evaluations
+  - type: Documentation
+    url: https://docs.promptlayer.com/features/tracing
+  - type: APIReference
+    url: https://docs.promptlayer.com/reference/spans-bulk
 common:
 - type: AgenticAccess
   url: agentic-access/promptlayer-agentic-access.yml
