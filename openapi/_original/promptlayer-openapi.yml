@@ -1,0 +1,893 @@
+openapi: 3.0.1
+info:
+  title: PromptLayer API
+  description: >-
+    REST API for PromptLayer, a prompt engineering, prompt management, and LLM
+    observability platform. The API logs and tracks LLM requests, manages a
+    versioned prompt registry with release labels, ingests OpenTelemetry-style
+    spans and traces, and runs evaluations against datasets. All requests are
+    authenticated with an `X-API-KEY` header. Note: some legacy tracking
+    endpoints are served under the `/rest` path prefix while newer endpoints are
+    served at the API root.
+  termsOfService: https://www.promptlayer.com/terms-of-service
+  contact:
+    name: PromptLayer Support
+    email: hello@promptlayer.com
+  version: '1.0'
+servers:
+  - url: https://api.promptlayer.com
+security:
+  - ApiKeyAuth: []
+tags:
+  - name: Logging & Tracking
+    description: Log and track LLM requests, scores, and metadata.
+  - name: Prompt Registry
+    description: Retrieve and publish versioned prompt templates.
+  - name: Evaluations & Datasets
+    description: Create, run, and score evaluation reports against datasets.
+  - name: Spans & Traces
+    description: Ingest spans and manage traces for LLM observability.
+paths:
+  /log-request:
+    post:
+      operationId: logRequest
+      tags:
+        - Logging & Tracking
+      summary: Log an LLM request
+      description: >-
+        Logs a provider-agnostic LLM request to PromptLayer using the Prompt
+        Blueprint format for input and output, including timing, parameters,
+        token usage, price, tags, and metadata.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/LogRequest'
+      responses:
+        '201':
+          description: Request logged
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/LogRequestResponse'
+        '401':
+          description: Unauthorized
+        '422':
+          description: Validation error
+  /rest/track-prompt:
+    post:
+      operationId: trackPrompt
+      tags:
+        - Logging & Tracking
+      summary: Associate a prompt template with a logged request
+      description: >-
+        Associates a prompt template (by name, with optional version or release
+        label) and its input variables with a previously logged PromptLayer
+        request.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/TrackPromptRequest'
+      responses:
+        '200':
+          description: Prompt tracked
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/SuccessMessage'
+        '400':
+          description: Bad request
+        '401':
+          description: Unauthorized
+        '422':
+          description: Validation error
+  /rest/track-score:
+    post:
+      operationId: trackScore
+      tags:
+        - Logging & Tracking
+      summary: Attach a score to a logged request
+      description: Attaches a 0-100 integer score, optionally named, to a logged request.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/TrackScoreRequest'
+      responses:
+        '200':
+          description: Score tracked
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/SuccessMessage'
+        '400':
+          description: Bad request
+        '401':
+          description: Unauthorized
+        '422':
+          description: Validation error
+  /rest/track-metadata:
+    post:
+      operationId: trackMetadata
+      tags:
+        - Logging & Tracking
+      summary: Attach metadata to a logged request
+      description: Attaches a custom key-value metadata dictionary to a logged request.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/TrackMetadataRequest'
+      responses:
+        '200':
+          description: Metadata tracked
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/SuccessMessage'
+        '401':
+          description: Unauthorized
+        '422':
+          description: Validation error
+  /prompt-templates/{identifier}:
+    post:
+      operationId: getPromptTemplate
+      tags:
+        - Prompt Registry
+      summary: Get a prompt template
+      description: >-
+        Retrieves a prompt template by name or id, resolving an optional version
+        or release label and optionally formatting it with provided input
+        variables for a given provider and model.
+      parameters:
+        - name: identifier
+          in: path
+          required: true
+          description: The prompt name or prompt template id.
+          schema:
+            type: string
+      requestBody:
+        required: false
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/GetPromptTemplateRequest'
+      responses:
+        '200':
+          description: Prompt template
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PromptTemplate'
+        '401':
+          description: Unauthorized
+        '404':
+          description: Template not found
+  /rest/prompt-templates:
+    post:
+      operationId: publishPromptTemplate
+      tags:
+        - Prompt Registry
+      summary: Publish a prompt template version
+      description: >-
+        Creates a new prompt template (or a new version of an existing one),
+        optionally assigning release labels and external ids.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/PublishPromptTemplateRequest'
+      responses:
+        '200':
+          description: Prompt template published
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PublishPromptTemplateResponse'
+        '401':
+          description: Unauthorized
+        '409':
+          description: External id conflict
+        '422':
+          description: Validation error
+  /evaluations:
+    get:
+      operationId: listEvaluations
+      tags:
+        - Evaluations & Datasets
+      summary: List evaluation reports
+      description: Lists evaluation reports in the workspace.
+      parameters:
+        - name: workspace_id
+          in: query
+          required: false
+          schema:
+            type: integer
+        - name: per_page
+          in: query
+          required: false
+          schema:
+            type: integer
+        - name: page
+          in: query
+          required: false
+          schema:
+            type: integer
+      responses:
+        '200':
+          description: A list of evaluation reports
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/EvaluationList'
+        '401':
+          description: Unauthorized
+    post:
+      operationId: createEvaluation
+      tags:
+        - Evaluations & Datasets
+      summary: Create an evaluation report
+      description: Creates a new evaluation report (pipeline) over a dataset.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CreateEvaluationRequest'
+      responses:
+        '201':
+          description: Evaluation report created
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Evaluation'
+        '401':
+          description: Unauthorized
+        '422':
+          description: Validation error
+  /evaluations/{id}:
+    get:
+      operationId: getEvaluation
+      tags:
+        - Evaluations & Datasets
+      summary: Get an evaluation report
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: integer
+      responses:
+        '200':
+          description: An evaluation report
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Evaluation'
+        '401':
+          description: Unauthorized
+        '404':
+          description: Not found
+  /evaluations/{id}/run:
+    post:
+      operationId: runEvaluation
+      tags:
+        - Evaluations & Datasets
+      summary: Run an evaluation report
+      description: Executes an evaluation report, scoring its rows against the configured columns.
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: integer
+      responses:
+        '200':
+          description: Evaluation run started
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/SuccessMessage'
+        '401':
+          description: Unauthorized
+        '404':
+          description: Not found
+  /evaluations/{id}/score:
+    get:
+      operationId: getEvaluationScore
+      tags:
+        - Evaluations & Datasets
+      summary: Get an evaluation report score
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: integer
+      responses:
+        '200':
+          description: Evaluation score
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/EvaluationScore'
+        '401':
+          description: Unauthorized
+        '404':
+          description: Not found
+  /datasets:
+    get:
+      operationId: listDatasets
+      tags:
+        - Evaluations & Datasets
+      summary: List datasets
+      description: Lists evaluation datasets in the workspace.
+      parameters:
+        - name: workspace_id
+          in: query
+          required: false
+          schema:
+            type: integer
+      responses:
+        '200':
+          description: A list of datasets
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/DatasetList'
+        '401':
+          description: Unauthorized
+  /spans-bulk:
+    post:
+      operationId: createSpansBulk
+      tags:
+        - Spans & Traces
+      summary: Ingest spans in bulk
+      description: >-
+        Atomically ingests a batch of OpenTelemetry-style spans. Optional
+        per-span `log_request` payloads create associated request logs. If any
+        span fails, the entire batch is rolled back.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/SpansBulkRequest'
+      responses:
+        '201':
+          description: Spans ingested
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/SpansBulkResponse'
+        '401':
+          description: Unauthorized
+        '422':
+          description: Validation error
+  /otlp/v1/traces:
+    post:
+      operationId: ingestOtlpTraces
+      tags:
+        - Spans & Traces
+      summary: Ingest OTLP traces
+      description: OpenTelemetry Protocol (OTLP) HTTP endpoint for ingesting traces.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              additionalProperties: true
+      responses:
+        '200':
+          description: Traces accepted
+        '401':
+          description: Unauthorized
+  /traces/{id}:
+    get:
+      operationId: getTrace
+      tags:
+        - Spans & Traces
+      summary: Get a trace
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: A trace
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Trace'
+        '401':
+          description: Unauthorized
+        '404':
+          description: Not found
+  /traces/{id}/close:
+    post:
+      operationId: closeTrace
+      tags:
+        - Spans & Traces
+      summary: Close a trace
+      description: Closes an open trace so no further spans can be appended.
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Trace closed
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/SuccessMessage'
+        '401':
+          description: Unauthorized
+        '404':
+          description: Not found
+components:
+  securitySchemes:
+    ApiKeyAuth:
+      type: apiKey
+      in: header
+      name: X-API-KEY
+  schemas:
+    PromptBlueprint:
+      type: object
+      description: >-
+        Prompt Blueprint payload, either a chat prompt (messages array) or a
+        completion prompt (content string). Provider-agnostic representation.
+      additionalProperties: true
+    LogRequest:
+      type: object
+      required:
+        - provider
+        - model
+        - input
+        - output
+        - request_start_time
+        - request_end_time
+      properties:
+        provider:
+          type: string
+          description: LLM provider name (e.g., openai, anthropic).
+        model:
+          type: string
+          description: Model identifier.
+        input:
+          $ref: '#/components/schemas/PromptBlueprint'
+        output:
+          $ref: '#/components/schemas/PromptBlueprint'
+        request_start_time:
+          type: string
+          format: date-time
+        request_end_time:
+          type: string
+          format: date-time
+        api_type:
+          type: string
+          description: API endpoint type (e.g., chat-completions).
+        parameters:
+          type: object
+          additionalProperties: true
+          description: Model parameters such as temperature and max_tokens.
+        tags:
+          type: array
+          items:
+            type: string
+        metadata:
+          type: object
+          additionalProperties:
+            type: string
+        status:
+          type: string
+          enum:
+            - SUCCESS
+            - WARNING
+            - ERROR
+          default: SUCCESS
+        error_type:
+          type: string
+        error_message:
+          type: string
+          maxLength: 1024
+        input_tokens:
+          type: integer
+        output_tokens:
+          type: integer
+        price:
+          type: number
+        score:
+          type: integer
+          minimum: 0
+          maximum: 100
+    LogRequestResponse:
+      type: object
+      properties:
+        id:
+          type: integer
+        prompt_version:
+          type: object
+          nullable: true
+          additionalProperties: true
+        status:
+          type: string
+          enum:
+            - SUCCESS
+            - WARNING
+            - ERROR
+        error_type:
+          type: string
+          nullable: true
+        error_message:
+          type: string
+          nullable: true
+    TrackPromptRequest:
+      type: object
+      required:
+        - prompt_name
+        - request_id
+      properties:
+        prompt_name:
+          type: string
+        request_id:
+          oneOf:
+            - type: integer
+            - type: string
+        prompt_input_variables:
+          type: object
+          additionalProperties: true
+        version:
+          oneOf:
+            - type: integer
+            - type: string
+          nullable: true
+        label:
+          type: string
+    TrackScoreRequest:
+      type: object
+      required:
+        - request_id
+        - score
+      properties:
+        request_id:
+          type: integer
+        score:
+          type: integer
+          minimum: 0
+          maximum: 100
+        name:
+          type: string
+          default: default
+    TrackMetadataRequest:
+      type: object
+      required:
+        - request_id
+        - metadata
+      properties:
+        request_id:
+          oneOf:
+            - type: integer
+            - type: string
+        metadata:
+          type: object
+          additionalProperties: true
+    SuccessMessage:
+      type: object
+      properties:
+        success:
+          type: boolean
+        message:
+          type: string
+    GetPromptTemplateRequest:
+      type: object
+      properties:
+        version:
+          type: integer
+          minimum: 1
+        label:
+          type: string
+          description: Release label such as "prod" or "staging".
+        provider:
+          type: string
+          enum:
+            - openai
+            - anthropic
+        input_variables:
+          type: object
+          additionalProperties:
+            type: string
+        model:
+          type: string
+        model_parameter_overrides:
+          type: object
+          additionalProperties: true
+    PromptTemplate:
+      type: object
+      properties:
+        id:
+          type: integer
+        prompt_name:
+          type: string
+        prompt_template:
+          $ref: '#/components/schemas/PromptBlueprint'
+        metadata:
+          type: object
+          additionalProperties: true
+        commit_message:
+          type: string
+        llm_kwargs:
+          type: object
+          additionalProperties: true
+        version:
+          type: integer
+    PublishPromptTemplateRequest:
+      type: object
+      required:
+        - prompt_template
+        - prompt_version
+      properties:
+        prompt_template:
+          type: object
+          required:
+            - prompt_name
+          properties:
+            prompt_name:
+              type: string
+              minLength: 1
+              maxLength: 512
+            tags:
+              type: array
+              items:
+                type: string
+            folder_id:
+              type: integer
+            workspace_id:
+              type: integer
+        prompt_version:
+          type: object
+          properties:
+            prompt_template:
+              $ref: '#/components/schemas/PromptBlueprint'
+            commit_message:
+              type: string
+              maxLength: 72
+            metadata:
+              type: object
+              additionalProperties: true
+        release_labels:
+          type: array
+          items:
+            type: string
+        external_ids:
+          type: array
+          items:
+            type: object
+            properties:
+              source:
+                type: string
+              external_id:
+                type: string
+    PublishPromptTemplateResponse:
+      type: object
+      properties:
+        id:
+          type: integer
+        prompt_name:
+          type: string
+        prompt_version_id:
+          type: integer
+        version_number:
+          type: integer
+        tags:
+          type: array
+          items:
+            type: string
+        release_labels:
+          type: array
+          items:
+            type: string
+        prompt_template:
+          $ref: '#/components/schemas/PromptBlueprint'
+        metadata:
+          type: object
+          additionalProperties: true
+        commit_message:
+          type: string
+    Evaluation:
+      type: object
+      properties:
+        id:
+          type: integer
+        name:
+          type: string
+        status:
+          type: string
+        dataset_id:
+          type: integer
+        workspace_id:
+          type: integer
+        created_at:
+          type: string
+          format: date-time
+    EvaluationList:
+      type: object
+      properties:
+        items:
+          type: array
+          items:
+            $ref: '#/components/schemas/Evaluation'
+        total:
+          type: integer
+    CreateEvaluationRequest:
+      type: object
+      required:
+        - name
+      properties:
+        name:
+          type: string
+        dataset_id:
+          type: integer
+        workspace_id:
+          type: integer
+    EvaluationScore:
+      type: object
+      properties:
+        id:
+          type: integer
+        score:
+          type: number
+        passed:
+          type: integer
+        failed:
+          type: integer
+    Dataset:
+      type: object
+      properties:
+        id:
+          type: integer
+        name:
+          type: string
+        workspace_id:
+          type: integer
+        row_count:
+          type: integer
+    DatasetList:
+      type: object
+      properties:
+        items:
+          type: array
+          items:
+            $ref: '#/components/schemas/Dataset'
+        total:
+          type: integer
+    Span:
+      type: object
+      properties:
+        name:
+          type: string
+        context:
+          type: object
+          properties:
+            trace_id:
+              type: string
+            span_id:
+              type: string
+            trace_state:
+              type: string
+        kind:
+          type: string
+          enum:
+            - SpanKind.CLIENT
+            - SpanKind.CONSUMER
+            - SpanKind.INTERNAL
+            - SpanKind.PRODUCER
+            - SpanKind.SERVER
+        parent_id:
+          type: string
+          nullable: true
+        start_time:
+          type: integer
+          description: Start time in nanoseconds.
+        end_time:
+          type: integer
+          description: End time in nanoseconds.
+        status:
+          type: object
+          properties:
+            status_code:
+              type: string
+              enum:
+                - StatusCode.OK
+                - StatusCode.ERROR
+                - StatusCode.UNSET
+            description:
+              type: string
+              nullable: true
+        attributes:
+          type: object
+          additionalProperties: true
+        resource:
+          type: object
+          properties:
+            attributes:
+              type: object
+              additionalProperties: true
+            schema_url:
+              type: string
+        log_request:
+          $ref: '#/components/schemas/LogRequest'
+    SpansBulkRequest:
+      type: object
+      required:
+        - spans
+      properties:
+        spans:
+          type: array
+          items:
+            $ref: '#/components/schemas/Span'
+        close_after:
+          type: boolean
+          default: false
+    SpansBulkResponse:
+      type: object
+      properties:
+        success:
+          type: boolean
+        spans:
+          type: array
+          items:
+            type: object
+            properties:
+              id:
+                type: integer
+              name:
+                type: string
+              span_id:
+                type: string
+        request_logs:
+          type: array
+          items:
+            type: object
+            properties:
+              id:
+                type: integer
+              span_id:
+                type: string
+        rejected_span_ids:
+          type: array
+          nullable: true
+          items:
+            type: string
+        rejected_trace_ids:
+          type: array
+          nullable: true
+          items:
+            type: string
+        rejection_reason:
+          type: string
+          nullable: true
+    Trace:
+      type: object
+      properties:
+        id:
+          type: string
+        name:
+          type: string
+        spans:
+          type: array
+          items:
+            $ref: '#/components/schemas/Span'
+        closed:
+          type: boolean
