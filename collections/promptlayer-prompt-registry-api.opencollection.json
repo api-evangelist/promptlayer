@@ -1,0 +1,64 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "PromptLayer Evaluations & Datasets Prompt Registry API",
+    "version": "1.0"
+  },
+  "request": {
+    "auth": {
+      "type": "apikey",
+      "key": "X-API-KEY",
+      "value": "{{X-API-KEY}}",
+      "placement": "header"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Prompt Registry",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Get a prompt template",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.promptlayer.com/prompt-templates/:identifier",
+            "params": [
+              {
+                "name": "identifier",
+                "value": "",
+                "type": "path",
+                "description": "The prompt name or prompt template id."
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Retrieves a prompt template by name or id, resolving an optional version or release label and optionally formatting it with provided input variables for a given provider and model."
+        },
+        {
+          "info": {
+            "name": "Publish a prompt template version",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.promptlayer.com/rest/prompt-templates",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Creates a new prompt template (or a new version of an existing one), optionally assigning release labels and external ids."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

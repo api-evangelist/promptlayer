@@ -1,0 +1,141 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "PromptLayer Evaluations & Datasets API",
+    "version": "1.0"
+  },
+  "request": {
+    "auth": {
+      "type": "apikey",
+      "key": "X-API-KEY",
+      "value": "{{X-API-KEY}}",
+      "placement": "header"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Evaluations & Datasets",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "List evaluation reports",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.promptlayer.com/evaluations",
+            "params": [
+              {
+                "name": "workspace_id",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "per_page",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "page",
+                "value": "",
+                "type": "query"
+              }
+            ]
+          },
+          "docs": "Lists evaluation reports in the workspace."
+        },
+        {
+          "info": {
+            "name": "Create an evaluation report",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.promptlayer.com/evaluations",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Creates a new evaluation report (pipeline) over a dataset."
+        },
+        {
+          "info": {
+            "name": "Get an evaluation report",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.promptlayer.com/evaluations/:id",
+            "params": [
+              {
+                "name": "id",
+                "value": "",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "Get an evaluation report"
+        },
+        {
+          "info": {
+            "name": "Run an evaluation report",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.promptlayer.com/evaluations/:id/run",
+            "params": [
+              {
+                "name": "id",
+                "value": "",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "Executes an evaluation report, scoring its rows against the configured columns."
+        },
+        {
+          "info": {
+            "name": "Get an evaluation report score",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.promptlayer.com/evaluations/:id/score",
+            "params": [
+              {
+                "name": "id",
+                "value": "",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "Get an evaluation report score"
+        },
+        {
+          "info": {
+            "name": "List datasets",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.promptlayer.com/datasets",
+            "params": [
+              {
+                "name": "workspace_id",
+                "value": "",
+                "type": "query"
+              }
+            ]
+          },
+          "docs": "Lists evaluation datasets in the workspace."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

@@ -1,0 +1,86 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "PromptLayer Evaluations & Datasets Logging & Tracking API",
+    "version": "1.0"
+  },
+  "request": {
+    "auth": {
+      "type": "apikey",
+      "key": "X-API-KEY",
+      "value": "{{X-API-KEY}}",
+      "placement": "header"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Logging & Tracking",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Log an LLM request",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.promptlayer.com/log-request",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Logs a provider-agnostic LLM request to PromptLayer using the Prompt Blueprint format for input and output, including timing, parameters, token usage, price, tags, and metadata."
+        },
+        {
+          "info": {
+            "name": "Associate a prompt template with a logged request",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.promptlayer.com/rest/track-prompt",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Associates a prompt template (by name, with optional version or release label) and its input variables with a previously logged PromptLayer request."
+        },
+        {
+          "info": {
+            "name": "Attach a score to a logged request",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.promptlayer.com/rest/track-score",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Attaches a 0-100 integer score, optionally named, to a logged request."
+        },
+        {
+          "info": {
+            "name": "Attach metadata to a logged request",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.promptlayer.com/rest/track-metadata",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Attaches a custom key-value metadata dictionary to a logged request."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

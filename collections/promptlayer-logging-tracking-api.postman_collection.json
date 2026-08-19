@@ -1,0 +1,929 @@
+{
+  "item": [
+    {
+      "id": "1b377315-9d5e-4ca7-b4ed-354d475a88bb",
+      "name": "Logging & Tracking",
+      "description": {
+        "content": "Log and track LLM requests, scores, and metadata.",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "8b5c6b4b-528e-41f4-a947-cf4d4559ffe5",
+          "name": "Log an LLM request",
+          "request": {
+            "name": "Log an LLM request",
+            "description": {
+              "content": "Logs a provider-agnostic LLM request to PromptLayer using the Prompt Blueprint format for input and output, including timing, parameters, token usage, price, tags, and metadata.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "log-request"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"provider\": \"<string>\",\n  \"model\": \"<string>\",\n  \"input\": {\n    \"key_0\": 4527\n  },\n  \"output\": {\n    \"key_0\": \"string\",\n    \"key_1\": 3696,\n    \"key_2\": 5559.172755068128\n  },\n  \"request_start_time\": \"<dateTime>\",\n  \"request_end_time\": \"<dateTime>\",\n  \"api_type\": \"<string>\",\n  \"parameters\": {\n    \"key_0\": false,\n    \"key_1\": 8990.532553432093,\n    \"key_2\": true,\n    \"key_3\": true\n  },\n  \"tags\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"metadata\": {\n    \"key_0\": \"<string>\",\n    \"key_1\": \"<string>\"\n  },\n  \"status\": \"SUCCESS\",\n  \"error_type\": \"<string>\",\n  \"error_message\": \"<string>\",\n  \"input_tokens\": \"<integer>\",\n  \"output_tokens\": \"<integer>\",\n  \"price\": \"<number>\",\n  \"score\": \"<integer>\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "0d6110b9-957d-45c0-ad60-cd2bcb94cf73",
+              "name": "Request logged",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "log-request"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-API-KEY",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"provider\": \"<string>\",\n  \"model\": \"<string>\",\n  \"input\": {\n    \"key_0\": 6061,\n    \"key_1\": 410.6342883743297,\n    \"key_2\": \"string\",\n    \"key_3\": 6214\n  },\n  \"output\": {\n    \"key_0\": 4678,\n    \"key_1\": 2050\n  },\n  \"request_start_time\": \"<dateTime>\",\n  \"request_end_time\": \"<dateTime>\",\n  \"api_type\": \"<string>\",\n  \"parameters\": {\n    \"key_0\": 6368,\n    \"key_1\": \"string\"\n  },\n  \"tags\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"metadata\": {\n    \"key_0\": \"<string>\",\n    \"key_1\": \"<string>\",\n    \"key_2\": \"<string>\"\n  },\n  \"status\": \"SUCCESS\",\n  \"error_type\": \"<string>\",\n  \"error_message\": \"<string>\",\n  \"input_tokens\": \"<integer>\",\n  \"output_tokens\": \"<integer>\",\n  \"price\": \"<number>\",\n  \"score\": \"<integer>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Created",
+              "code": 201,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"id\": 4721,\n  \"prompt_version\": {\n    \"key_0\": 6175,\n    \"key_1\": \"string\",\n    \"key_2\": \"string\"\n  },\n  \"status\": \"ERROR\",\n  \"error_type\": \"string\",\n  \"error_message\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "d2711ef4-b0a6-4a99-8080-e4114dff3a04",
+              "name": "Unauthorized",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "log-request"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-API-KEY",
+                    "value": "<API Key>"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"provider\": \"<string>\",\n  \"model\": \"<string>\",\n  \"input\": {\n    \"key_0\": 6061,\n    \"key_1\": 410.6342883743297,\n    \"key_2\": \"string\",\n    \"key_3\": 6214\n  },\n  \"output\": {\n    \"key_0\": 4678,\n    \"key_1\": 2050\n  },\n  \"request_start_time\": \"<dateTime>\",\n  \"request_end_time\": \"<dateTime>\",\n  \"api_type\": \"<string>\",\n  \"parameters\": {\n    \"key_0\": 6368,\n    \"key_1\": \"string\"\n  },\n  \"tags\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"metadata\": {\n    \"key_0\": \"<string>\",\n    \"key_1\": \"<string>\",\n    \"key_2\": \"<string>\"\n  },\n  \"status\": \"SUCCESS\",\n  \"error_type\": \"<string>\",\n  \"error_message\": \"<string>\",\n  \"input_tokens\": \"<integer>\",\n  \"output_tokens\": \"<integer>\",\n  \"price\": \"<number>\",\n  \"score\": \"<integer>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "320bf334-fbd6-4e87-a257-ef00d42567c0",
+              "name": "Validation error",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "log-request"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-API-KEY",
+                    "value": "<API Key>"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"provider\": \"<string>\",\n  \"model\": \"<string>\",\n  \"input\": {\n    \"key_0\": 6061,\n    \"key_1\": 410.6342883743297,\n    \"key_2\": \"string\",\n    \"key_3\": 6214\n  },\n  \"output\": {\n    \"key_0\": 4678,\n    \"key_1\": 2050\n  },\n  \"request_start_time\": \"<dateTime>\",\n  \"request_end_time\": \"<dateTime>\",\n  \"api_type\": \"<string>\",\n  \"parameters\": {\n    \"key_0\": 6368,\n    \"key_1\": \"string\"\n  },\n  \"tags\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"metadata\": {\n    \"key_0\": \"<string>\",\n    \"key_1\": \"<string>\",\n    \"key_2\": \"<string>\"\n  },\n  \"status\": \"SUCCESS\",\n  \"error_type\": \"<string>\",\n  \"error_message\": \"<string>\",\n  \"input_tokens\": \"<integer>\",\n  \"output_tokens\": \"<integer>\",\n  \"price\": \"<number>\",\n  \"score\": \"<integer>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Unprocessable Entity (WebDAV) (RFC 4918)",
+              "code": 422,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "a3c9cc4f-37ae-4be3-a85b-caf32db479b8",
+          "name": "Associate a prompt template with a logged request",
+          "request": {
+            "name": "Associate a prompt template with a logged request",
+            "description": {
+              "content": "Associates a prompt template (by name, with optional version or release label) and its input variables with a previously logged PromptLayer request.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "rest",
+                "track-prompt"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"prompt_name\": \"<string>\",\n  \"request_id\": \"<integer>\",\n  \"prompt_input_variables\": {\n    \"key_0\": \"string\",\n    \"key_1\": 7553.911394815297\n  },\n  \"version\": \"<integer>\",\n  \"label\": \"<string>\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "82dcbb21-1cec-45f1-8ea9-114d58ed22a6",
+              "name": "Prompt tracked",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "rest",
+                    "track-prompt"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-API-KEY",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"prompt_name\": \"<string>\",\n  \"request_id\": \"<integer>\",\n  \"prompt_input_variables\": {\n    \"key_0\": 2573,\n    \"key_1\": true\n  },\n  \"version\": \"<integer>\",\n  \"label\": \"<string>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"success\": true,\n  \"message\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "f4d8fab9-372c-40ff-af1b-932ccfef907f",
+              "name": "Bad request",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "rest",
+                    "track-prompt"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-API-KEY",
+                    "value": "<API Key>"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"prompt_name\": \"<string>\",\n  \"request_id\": \"<integer>\",\n  \"prompt_input_variables\": {\n    \"key_0\": 2573,\n    \"key_1\": true\n  },\n  \"version\": \"<integer>\",\n  \"label\": \"<string>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "b14df8c4-c7fc-4dba-9e5e-efe7758e3517",
+              "name": "Unauthorized",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "rest",
+                    "track-prompt"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-API-KEY",
+                    "value": "<API Key>"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"prompt_name\": \"<string>\",\n  \"request_id\": \"<integer>\",\n  \"prompt_input_variables\": {\n    \"key_0\": 2573,\n    \"key_1\": true\n  },\n  \"version\": \"<integer>\",\n  \"label\": \"<string>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "c31d6bb8-39ec-4594-bd8e-baff2b321776",
+              "name": "Validation error",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "rest",
+                    "track-prompt"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-API-KEY",
+                    "value": "<API Key>"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"prompt_name\": \"<string>\",\n  \"request_id\": \"<integer>\",\n  \"prompt_input_variables\": {\n    \"key_0\": 2573,\n    \"key_1\": true\n  },\n  \"version\": \"<integer>\",\n  \"label\": \"<string>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Unprocessable Entity (WebDAV) (RFC 4918)",
+              "code": 422,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "8a961cd2-5e36-4095-887b-e81a36321f35",
+          "name": "Attach a score to a logged request",
+          "request": {
+            "name": "Attach a score to a logged request",
+            "description": {
+              "content": "Attaches a 0-100 integer score, optionally named, to a logged request.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "rest",
+                "track-score"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"request_id\": \"<integer>\",\n  \"score\": \"<integer>\",\n  \"name\": \"default\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "717025d5-5117-41af-9b77-d25b9657263a",
+              "name": "Score tracked",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "rest",
+                    "track-score"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-API-KEY",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"request_id\": \"<integer>\",\n  \"score\": \"<integer>\",\n  \"name\": \"default\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"success\": true,\n  \"message\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "3817b394-7fc6-416f-98ac-525b76798309",
+              "name": "Bad request",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "rest",
+                    "track-score"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-API-KEY",
+                    "value": "<API Key>"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"request_id\": \"<integer>\",\n  \"score\": \"<integer>\",\n  \"name\": \"default\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "6c48da52-56e2-438f-9afd-8f95e0dbd010",
+              "name": "Unauthorized",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "rest",
+                    "track-score"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-API-KEY",
+                    "value": "<API Key>"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"request_id\": \"<integer>\",\n  \"score\": \"<integer>\",\n  \"name\": \"default\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "9845e46e-c47d-49aa-8096-ea5695a100d7",
+              "name": "Validation error",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "rest",
+                    "track-score"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-API-KEY",
+                    "value": "<API Key>"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"request_id\": \"<integer>\",\n  \"score\": \"<integer>\",\n  \"name\": \"default\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Unprocessable Entity (WebDAV) (RFC 4918)",
+              "code": 422,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "a7999d1a-e846-458e-aec0-e394bf8c9129",
+          "name": "Attach metadata to a logged request",
+          "request": {
+            "name": "Attach metadata to a logged request",
+            "description": {
+              "content": "Attaches a custom key-value metadata dictionary to a logged request.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "rest",
+                "track-metadata"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"request_id\": \"<integer>\",\n  \"metadata\": {\n    \"key_0\": 8499\n  }\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "4c10a4b3-603c-4ebd-9a5f-a8f51bc97608",
+              "name": "Metadata tracked",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "rest",
+                    "track-metadata"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-API-KEY",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"request_id\": \"<integer>\",\n  \"metadata\": {\n    \"key_0\": 6984.276331015712,\n    \"key_1\": 5365\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"success\": true,\n  \"message\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "d79f4bce-9f81-4538-8975-5a39a9595c7f",
+              "name": "Unauthorized",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "rest",
+                    "track-metadata"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-API-KEY",
+                    "value": "<API Key>"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"request_id\": \"<integer>\",\n  \"metadata\": {\n    \"key_0\": 6984.276331015712,\n    \"key_1\": 5365\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "1643ff71-5156-4c21-99d9-71bf933ab939",
+              "name": "Validation error",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "rest",
+                    "track-metadata"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-API-KEY",
+                    "value": "<API Key>"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"request_id\": \"<integer>\",\n  \"metadata\": {\n    \"key_0\": 6984.276331015712,\n    \"key_1\": 5365\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Unprocessable Entity (WebDAV) (RFC 4918)",
+              "code": 422,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "https://api.promptlayer.com",
+      "key": "baseUrl"
+    }
+  ],
+  "auth": {
+    "type": "apikey",
+    "apikey": [
+      {
+        "key": "key",
+        "value": "X-API-KEY"
+      },
+      {
+        "key": "value",
+        "value": "{{apiKey}}"
+      },
+      {
+        "key": "in",
+        "value": "header"
+      }
+    ]
+  },
+  "info": {
+    "_postman_id": "ef7724e5-be9e-46fb-a232-a89abb3ddd64",
+    "name": "PromptLayer Evaluations & Datasets Logging & Tracking API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "REST API for PromptLayer, a prompt engineering, prompt management, and LLM observability platform. The API logs and tracks LLM requests, manages a versioned prompt registry with release labels, ingests OpenTelemetry-style spans and traces, and runs evaluations against datasets. All requests are authenticated with an `X-API-KEY` header. Note: some legacy tracking endpoints are served under the `/rest` path prefix while newer endpoints are served at the API root.\n\nContact Support:\n Name: PromptLayer Support\n Email: hello@promptlayer.com",
+      "type": "text/plain"
+    }
+  }
+}

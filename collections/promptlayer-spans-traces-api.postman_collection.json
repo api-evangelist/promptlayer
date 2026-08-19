@@ -1,0 +1,771 @@
+{
+  "item": [
+    {
+      "id": "40248fcb-e334-4dc7-b92d-02deed27f141",
+      "name": "Spans & Traces",
+      "description": {
+        "content": "Ingest spans and manage traces for LLM observability.",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "6c50b66c-fd4c-4c7c-a78c-430be406164f",
+          "name": "Ingest spans in bulk",
+          "request": {
+            "name": "Ingest spans in bulk",
+            "description": {
+              "content": "Atomically ingests a batch of OpenTelemetry-style spans. Optional per-span `log_request` payloads create associated request logs. If any span fails, the entire batch is rolled back.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "spans-bulk"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"spans\": [\n    {\n      \"name\": \"<string>\",\n      \"context\": {\n        \"trace_id\": \"<string>\",\n        \"span_id\": \"<string>\",\n        \"trace_state\": \"<string>\"\n      },\n      \"kind\": \"<string>\",\n      \"parent_id\": \"<string>\",\n      \"start_time\": \"<integer>\",\n      \"end_time\": \"<integer>\",\n      \"status\": {\n        \"status_code\": \"<string>\",\n        \"description\": \"<string>\"\n      },\n      \"attributes\": {\n        \"key_0\": false\n      },\n      \"resource\": {\n        \"attributes\": {\n          \"key_0\": 8312.369320255026,\n          \"key_1\": 4246,\n          \"key_2\": \"string\"\n        },\n        \"schema_url\": \"<string>\"\n      },\n      \"log_request\": {\n        \"provider\": \"<string>\",\n        \"model\": \"<string>\",\n        \"input\": {\n          \"key_0\": 2641,\n          \"key_1\": false\n        },\n        \"output\": {\n          \"key_0\": 6963,\n          \"key_1\": true\n        },\n        \"request_start_time\": \"<dateTime>\",\n        \"request_end_time\": \"<dateTime>\",\n        \"api_type\": \"<string>\",\n        \"parameters\": {\n          \"key_0\": true,\n          \"key_1\": true,\n          \"key_2\": true\n        },\n        \"tags\": [\n          \"<string>\",\n          \"<string>\"\n        ],\n        \"metadata\": {\n          \"key_0\": \"<string>\",\n          \"key_1\": \"<string>\"\n        },\n        \"status\": \"SUCCESS\",\n        \"error_type\": \"<string>\",\n        \"error_message\": \"<string>\",\n        \"input_tokens\": \"<integer>\",\n        \"output_tokens\": \"<integer>\",\n        \"price\": \"<number>\",\n        \"score\": \"<integer>\"\n      }\n    },\n    {\n      \"name\": \"<string>\",\n      \"context\": {\n        \"trace_id\": \"<string>\",\n        \"span_id\": \"<string>\",\n        \"trace_state\": \"<string>\"\n      },\n      \"kind\": \"<string>\",\n      \"parent_id\": \"<string>\",\n      \"start_time\": \"<integer>\",\n      \"end_time\": \"<integer>\",\n      \"status\": {\n        \"status_code\": \"<string>\",\n        \"description\": \"<string>\"\n      },\n      \"attributes\": {\n        \"key_0\": 4922.9598717816425,\n        \"key_1\": 9603.5271572601\n      },\n      \"resource\": {\n        \"attributes\": {\n          \"key_0\": true,\n          \"key_1\": 5277.042083358125,\n          \"key_2\": 8338\n        },\n        \"schema_url\": \"<string>\"\n      },\n      \"log_request\": {\n        \"provider\": \"<string>\",\n        \"model\": \"<string>\",\n        \"input\": {\n          \"key_0\": \"string\"\n        },\n        \"output\": {\n          \"key_0\": 2937\n        },\n        \"request_start_time\": \"<dateTime>\",\n        \"request_end_time\": \"<dateTime>\",\n        \"api_type\": \"<string>\",\n        \"parameters\": {\n          \"key_0\": \"string\",\n          \"key_1\": true\n        },\n        \"tags\": [\n          \"<string>\",\n          \"<string>\"\n        ],\n        \"metadata\": {\n          \"key_0\": \"<string>\",\n          \"key_1\": \"<string>\"\n        },\n        \"status\": \"SUCCESS\",\n        \"error_type\": \"<string>\",\n        \"error_message\": \"<string>\",\n        \"input_tokens\": \"<integer>\",\n        \"output_tokens\": \"<integer>\",\n        \"price\": \"<number>\",\n        \"score\": \"<integer>\"\n      }\n    }\n  ],\n  \"close_after\": false\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "9327d067-a147-45ef-959f-c8eed823866d",
+              "name": "Spans ingested",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "spans-bulk"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-API-KEY",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"spans\": [\n    {\n      \"name\": \"<string>\",\n      \"context\": {\n        \"trace_id\": \"<string>\",\n        \"span_id\": \"<string>\",\n        \"trace_state\": \"<string>\"\n      },\n      \"kind\": \"<string>\",\n      \"parent_id\": \"<string>\",\n      \"start_time\": \"<integer>\",\n      \"end_time\": \"<integer>\",\n      \"status\": {\n        \"status_code\": \"<string>\",\n        \"description\": \"<string>\"\n      },\n      \"attributes\": {\n        \"key_0\": \"string\",\n        \"key_1\": \"string\"\n      },\n      \"resource\": {\n        \"attributes\": {\n          \"key_0\": false,\n          \"key_1\": false\n        },\n        \"schema_url\": \"<string>\"\n      },\n      \"log_request\": {\n        \"provider\": \"<string>\",\n        \"model\": \"<string>\",\n        \"input\": {\n          \"key_0\": 7808.103396525054,\n          \"key_1\": \"string\",\n          \"key_2\": 2160.8401795708132\n        },\n        \"output\": {\n          \"key_0\": 1088.983348343825\n        },\n        \"request_start_time\": \"<dateTime>\",\n        \"request_end_time\": \"<dateTime>\",\n        \"api_type\": \"<string>\",\n        \"parameters\": {\n          \"key_0\": 2617,\n          \"key_1\": \"string\",\n          \"key_2\": 3196,\n          \"key_3\": 421.4619351307558\n        },\n        \"tags\": [\n          \"<string>\",\n          \"<string>\"\n        ],\n        \"metadata\": {\n          \"key_0\": \"<string>\"\n        },\n        \"status\": \"SUCCESS\",\n        \"error_type\": \"<string>\",\n        \"error_message\": \"<string>\",\n        \"input_tokens\": \"<integer>\",\n        \"output_tokens\": \"<integer>\",\n        \"price\": \"<number>\",\n        \"score\": \"<integer>\"\n      }\n    },\n    {\n      \"name\": \"<string>\",\n      \"context\": {\n        \"trace_id\": \"<string>\",\n        \"span_id\": \"<string>\",\n        \"trace_state\": \"<string>\"\n      },\n      \"kind\": \"<string>\",\n      \"parent_id\": \"<string>\",\n      \"start_time\": \"<integer>\",\n      \"end_time\": \"<integer>\",\n      \"status\": {\n        \"status_code\": \"<string>\",\n        \"description\": \"<string>\"\n      },\n      \"attributes\": {\n        \"key_0\": \"string\"\n      },\n      \"resource\": {\n        \"attributes\": {\n          \"key_0\": 4805.342983205243,\n          \"key_1\": \"string\",\n          \"key_2\": false\n        },\n        \"schema_url\": \"<string>\"\n      },\n      \"log_request\": {\n        \"provider\": \"<string>\",\n        \"model\": \"<string>\",\n        \"input\": {\n          \"key_0\": 3919.7611054624504,\n          \"key_1\": \"string\"\n        },\n        \"output\": {\n          \"key_0\": true,\n          \"key_1\": 1085.437675197939\n        },\n        \"request_start_time\": \"<dateTime>\",\n        \"request_end_time\": \"<dateTime>\",\n        \"api_type\": \"<string>\",\n        \"parameters\": {\n          \"key_0\": 2966.0402049471622,\n          \"key_1\": 5774,\n          \"key_2\": 6689,\n          \"key_3\": 3953\n        },\n        \"tags\": [\n          \"<string>\",\n          \"<string>\"\n        ],\n        \"metadata\": {\n          \"key_0\": \"<string>\"\n        },\n        \"status\": \"SUCCESS\",\n        \"error_type\": \"<string>\",\n        \"error_message\": \"<string>\",\n        \"input_tokens\": \"<integer>\",\n        \"output_tokens\": \"<integer>\",\n        \"price\": \"<number>\",\n        \"score\": \"<integer>\"\n      }\n    }\n  ],\n  \"close_after\": false\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Created",
+              "code": 201,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"success\": true,\n  \"spans\": [\n    {\n      \"id\": 8243,\n      \"name\": \"string\",\n      \"span_id\": \"string\"\n    },\n    {\n      \"id\": 4142,\n      \"name\": \"string\",\n      \"span_id\": \"string\"\n    }\n  ],\n  \"request_logs\": [\n    {\n      \"id\": 3780,\n      \"span_id\": \"string\"\n    },\n    {\n      \"id\": 3644,\n      \"span_id\": \"string\"\n    }\n  ],\n  \"rejected_span_ids\": [\n    \"string\",\n    \"string\"\n  ],\n  \"rejected_trace_ids\": [\n    \"string\",\n    \"string\"\n  ],\n  \"rejection_reason\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "6b283820-51db-41bf-b03c-508b339a2f2c",
+              "name": "Unauthorized",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "spans-bulk"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-API-KEY",
+                    "value": "<API Key>"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"spans\": [\n    {\n      \"name\": \"<string>\",\n      \"context\": {\n        \"trace_id\": \"<string>\",\n        \"span_id\": \"<string>\",\n        \"trace_state\": \"<string>\"\n      },\n      \"kind\": \"<string>\",\n      \"parent_id\": \"<string>\",\n      \"start_time\": \"<integer>\",\n      \"end_time\": \"<integer>\",\n      \"status\": {\n        \"status_code\": \"<string>\",\n        \"description\": \"<string>\"\n      },\n      \"attributes\": {\n        \"key_0\": \"string\",\n        \"key_1\": \"string\"\n      },\n      \"resource\": {\n        \"attributes\": {\n          \"key_0\": false,\n          \"key_1\": false\n        },\n        \"schema_url\": \"<string>\"\n      },\n      \"log_request\": {\n        \"provider\": \"<string>\",\n        \"model\": \"<string>\",\n        \"input\": {\n          \"key_0\": 7808.103396525054,\n          \"key_1\": \"string\",\n          \"key_2\": 2160.8401795708132\n        },\n        \"output\": {\n          \"key_0\": 1088.983348343825\n        },\n        \"request_start_time\": \"<dateTime>\",\n        \"request_end_time\": \"<dateTime>\",\n        \"api_type\": \"<string>\",\n        \"parameters\": {\n          \"key_0\": 2617,\n          \"key_1\": \"string\",\n          \"key_2\": 3196,\n          \"key_3\": 421.4619351307558\n        },\n        \"tags\": [\n          \"<string>\",\n          \"<string>\"\n        ],\n        \"metadata\": {\n          \"key_0\": \"<string>\"\n        },\n        \"status\": \"SUCCESS\",\n        \"error_type\": \"<string>\",\n        \"error_message\": \"<string>\",\n        \"input_tokens\": \"<integer>\",\n        \"output_tokens\": \"<integer>\",\n        \"price\": \"<number>\",\n        \"score\": \"<integer>\"\n      }\n    },\n    {\n      \"name\": \"<string>\",\n      \"context\": {\n        \"trace_id\": \"<string>\",\n        \"span_id\": \"<string>\",\n        \"trace_state\": \"<string>\"\n      },\n      \"kind\": \"<string>\",\n      \"parent_id\": \"<string>\",\n      \"start_time\": \"<integer>\",\n      \"end_time\": \"<integer>\",\n      \"status\": {\n        \"status_code\": \"<string>\",\n        \"description\": \"<string>\"\n      },\n      \"attributes\": {\n        \"key_0\": \"string\"\n      },\n      \"resource\": {\n        \"attributes\": {\n          \"key_0\": 4805.342983205243,\n          \"key_1\": \"string\",\n          \"key_2\": false\n        },\n        \"schema_url\": \"<string>\"\n      },\n      \"log_request\": {\n        \"provider\": \"<string>\",\n        \"model\": \"<string>\",\n        \"input\": {\n          \"key_0\": 3919.7611054624504,\n          \"key_1\": \"string\"\n        },\n        \"output\": {\n          \"key_0\": true,\n          \"key_1\": 1085.437675197939\n        },\n        \"request_start_time\": \"<dateTime>\",\n        \"request_end_time\": \"<dateTime>\",\n        \"api_type\": \"<string>\",\n        \"parameters\": {\n          \"key_0\": 2966.0402049471622,\n          \"key_1\": 5774,\n          \"key_2\": 6689,\n          \"key_3\": 3953\n        },\n        \"tags\": [\n          \"<string>\",\n          \"<string>\"\n        ],\n        \"metadata\": {\n          \"key_0\": \"<string>\"\n        },\n        \"status\": \"SUCCESS\",\n        \"error_type\": \"<string>\",\n        \"error_message\": \"<string>\",\n        \"input_tokens\": \"<integer>\",\n        \"output_tokens\": \"<integer>\",\n        \"price\": \"<number>\",\n        \"score\": \"<integer>\"\n      }\n    }\n  ],\n  \"close_after\": false\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "8956388d-449a-4891-9bed-799efc49d51a",
+              "name": "Validation error",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "spans-bulk"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-API-KEY",
+                    "value": "<API Key>"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"spans\": [\n    {\n      \"name\": \"<string>\",\n      \"context\": {\n        \"trace_id\": \"<string>\",\n        \"span_id\": \"<string>\",\n        \"trace_state\": \"<string>\"\n      },\n      \"kind\": \"<string>\",\n      \"parent_id\": \"<string>\",\n      \"start_time\": \"<integer>\",\n      \"end_time\": \"<integer>\",\n      \"status\": {\n        \"status_code\": \"<string>\",\n        \"description\": \"<string>\"\n      },\n      \"attributes\": {\n        \"key_0\": \"string\",\n        \"key_1\": \"string\"\n      },\n      \"resource\": {\n        \"attributes\": {\n          \"key_0\": false,\n          \"key_1\": false\n        },\n        \"schema_url\": \"<string>\"\n      },\n      \"log_request\": {\n        \"provider\": \"<string>\",\n        \"model\": \"<string>\",\n        \"input\": {\n          \"key_0\": 7808.103396525054,\n          \"key_1\": \"string\",\n          \"key_2\": 2160.8401795708132\n        },\n        \"output\": {\n          \"key_0\": 1088.983348343825\n        },\n        \"request_start_time\": \"<dateTime>\",\n        \"request_end_time\": \"<dateTime>\",\n        \"api_type\": \"<string>\",\n        \"parameters\": {\n          \"key_0\": 2617,\n          \"key_1\": \"string\",\n          \"key_2\": 3196,\n          \"key_3\": 421.4619351307558\n        },\n        \"tags\": [\n          \"<string>\",\n          \"<string>\"\n        ],\n        \"metadata\": {\n          \"key_0\": \"<string>\"\n        },\n        \"status\": \"SUCCESS\",\n        \"error_type\": \"<string>\",\n        \"error_message\": \"<string>\",\n        \"input_tokens\": \"<integer>\",\n        \"output_tokens\": \"<integer>\",\n        \"price\": \"<number>\",\n        \"score\": \"<integer>\"\n      }\n    },\n    {\n      \"name\": \"<string>\",\n      \"context\": {\n        \"trace_id\": \"<string>\",\n        \"span_id\": \"<string>\",\n        \"trace_state\": \"<string>\"\n      },\n      \"kind\": \"<string>\",\n      \"parent_id\": \"<string>\",\n      \"start_time\": \"<integer>\",\n      \"end_time\": \"<integer>\",\n      \"status\": {\n        \"status_code\": \"<string>\",\n        \"description\": \"<string>\"\n      },\n      \"attributes\": {\n        \"key_0\": \"string\"\n      },\n      \"resource\": {\n        \"attributes\": {\n          \"key_0\": 4805.342983205243,\n          \"key_1\": \"string\",\n          \"key_2\": false\n        },\n        \"schema_url\": \"<string>\"\n      },\n      \"log_request\": {\n        \"provider\": \"<string>\",\n        \"model\": \"<string>\",\n        \"input\": {\n          \"key_0\": 3919.7611054624504,\n          \"key_1\": \"string\"\n        },\n        \"output\": {\n          \"key_0\": true,\n          \"key_1\": 1085.437675197939\n        },\n        \"request_start_time\": \"<dateTime>\",\n        \"request_end_time\": \"<dateTime>\",\n        \"api_type\": \"<string>\",\n        \"parameters\": {\n          \"key_0\": 2966.0402049471622,\n          \"key_1\": 5774,\n          \"key_2\": 6689,\n          \"key_3\": 3953\n        },\n        \"tags\": [\n          \"<string>\",\n          \"<string>\"\n        ],\n        \"metadata\": {\n          \"key_0\": \"<string>\"\n        },\n        \"status\": \"SUCCESS\",\n        \"error_type\": \"<string>\",\n        \"error_message\": \"<string>\",\n        \"input_tokens\": \"<integer>\",\n        \"output_tokens\": \"<integer>\",\n        \"price\": \"<number>\",\n        \"score\": \"<integer>\"\n      }\n    }\n  ],\n  \"close_after\": false\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Unprocessable Entity (WebDAV) (RFC 4918)",
+              "code": 422,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "4405e308-657c-45c0-aac5-1cf677b598ce",
+          "name": "Ingest OTLP traces",
+          "request": {
+            "name": "Ingest OTLP traces",
+            "description": {
+              "content": "OpenTelemetry Protocol (OTLP) HTTP endpoint for ingesting traces.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "otlp",
+                "v1",
+                "traces"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"key_0\": 2684.166704010401,\n  \"key_1\": 2636.637022258679\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "8e53b009-9e90-463f-8731-614a85b4ddbe",
+              "name": "Traces accepted",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "otlp",
+                    "v1",
+                    "traces"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-API-KEY",
+                    "value": "<API Key>"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"key_0\": \"string\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "66651d63-762e-4809-af2d-333604645e9d",
+              "name": "Unauthorized",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "otlp",
+                    "v1",
+                    "traces"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-API-KEY",
+                    "value": "<API Key>"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"key_0\": \"string\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "550f6526-1a4a-4bef-9813-69e064c4af6d",
+          "name": "Get a trace",
+          "request": {
+            "name": "Get a trace",
+            "description": {},
+            "url": {
+              "path": [
+                "traces",
+                ":id"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "id",
+                  "description": "(Required) "
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "1742cf0f-c939-4b2e-9215-0eee8a737a2d",
+              "name": "A trace",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "traces",
+                    ":id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "id",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-API-KEY",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"id\": \"string\",\n  \"name\": \"string\",\n  \"spans\": [\n    {\n      \"name\": \"<string>\",\n      \"context\": {\n        \"trace_id\": \"<string>\",\n        \"span_id\": \"<string>\",\n        \"trace_state\": \"<string>\"\n      },\n      \"kind\": \"<string>\",\n      \"parent_id\": \"<string>\",\n      \"start_time\": \"<integer>\",\n      \"end_time\": \"<integer>\",\n      \"status\": {\n        \"status_code\": \"<string>\",\n        \"description\": \"<string>\"\n      },\n      \"attributes\": {\n        \"key_0\": 1316,\n        \"key_1\": 4471.603410752118\n      },\n      \"resource\": {\n        \"attributes\": {\n          \"key_0\": 6715\n        },\n        \"schema_url\": \"<string>\"\n      },\n      \"log_request\": {\n        \"provider\": \"<string>\",\n        \"model\": \"<string>\",\n        \"input\": {\n          \"key_0\": 6801.456583489873,\n          \"key_1\": \"string\",\n          \"key_2\": 8453.539658664833\n        },\n        \"output\": {\n          \"key_0\": \"string\",\n          \"key_1\": \"string\",\n          \"key_2\": \"string\",\n          \"key_3\": 5889\n        },\n        \"request_start_time\": \"<dateTime>\",\n        \"request_end_time\": \"<dateTime>\",\n        \"api_type\": \"<string>\",\n        \"parameters\": {\n          \"key_0\": \"string\",\n          \"key_1\": 115.04733822603642\n        },\n        \"tags\": [\n          \"<string>\",\n          \"<string>\"\n        ],\n        \"metadata\": {\n          \"key_0\": \"<string>\"\n        },\n        \"status\": \"SUCCESS\",\n        \"error_type\": \"<string>\",\n        \"error_message\": \"<string>\",\n        \"input_tokens\": \"<integer>\",\n        \"output_tokens\": \"<integer>\",\n        \"price\": \"<number>\",\n        \"score\": \"<integer>\"\n      }\n    },\n    {\n      \"name\": \"<string>\",\n      \"context\": {\n        \"trace_id\": \"<string>\",\n        \"span_id\": \"<string>\",\n        \"trace_state\": \"<string>\"\n      },\n      \"kind\": \"<string>\",\n      \"parent_id\": \"<string>\",\n      \"start_time\": \"<integer>\",\n      \"end_time\": \"<integer>\",\n      \"status\": {\n        \"status_code\": \"<string>\",\n        \"description\": \"<string>\"\n      },\n      \"attributes\": {\n        \"key_0\": 2732\n      },\n      \"resource\": {\n        \"attributes\": {\n          \"key_0\": 7301,\n          \"key_1\": \"string\"\n        },\n        \"schema_url\": \"<string>\"\n      },\n      \"log_request\": {\n        \"provider\": \"<string>\",\n        \"model\": \"<string>\",\n        \"input\": {\n          \"key_0\": 6798.346494282896\n        },\n        \"output\": {\n          \"key_0\": \"string\",\n          \"key_1\": false\n        },\n        \"request_start_time\": \"<dateTime>\",\n        \"request_end_time\": \"<dateTime>\",\n        \"api_type\": \"<string>\",\n        \"parameters\": {\n          \"key_0\": false,\n          \"key_1\": \"string\"\n        },\n        \"tags\": [\n          \"<string>\",\n          \"<string>\"\n        ],\n        \"metadata\": {\n          \"key_0\": \"<string>\",\n          \"key_1\": \"<string>\",\n          \"key_2\": \"<string>\",\n          \"key_3\": \"<string>\"\n        },\n        \"status\": \"SUCCESS\",\n        \"error_type\": \"<string>\",\n        \"error_message\": \"<string>\",\n        \"input_tokens\": \"<integer>\",\n        \"output_tokens\": \"<integer>\",\n        \"price\": \"<number>\",\n        \"score\": \"<integer>\"\n      }\n    }\n  ],\n  \"closed\": false\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "86062d96-4d33-45ca-a860-be4e514691f1",
+              "name": "Unauthorized",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "traces",
+                    ":id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "id",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-API-KEY",
+                    "value": "<API Key>"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "e658bbf9-a3be-4aa8-b11f-664c317edde5",
+              "name": "Not found",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "traces",
+                    ":id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "id",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-API-KEY",
+                    "value": "<API Key>"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "ce6607e9-d8ef-406b-8853-de4a4b0b42ca",
+          "name": "Close a trace",
+          "request": {
+            "name": "Close a trace",
+            "description": {
+              "content": "Closes an open trace so no further spans can be appended.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "traces",
+                ":id",
+                "close"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "id",
+                  "description": "(Required) "
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "db58668e-de4d-4592-842a-778c889518ea",
+              "name": "Trace closed",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "traces",
+                    ":id",
+                    "close"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "id",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-API-KEY",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"success\": true,\n  \"message\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "c761fd15-d885-468d-86f5-c1ad0cf9edea",
+              "name": "Unauthorized",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "traces",
+                    ":id",
+                    "close"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "id",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-API-KEY",
+                    "value": "<API Key>"
+                  }
+                ],
+                "method": "POST",
+                "body": {}
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "1e4f06da-df74-4882-bcc2-3a412ac73a56",
+              "name": "Not found",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "traces",
+                    ":id",
+                    "close"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "id",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-API-KEY",
+                    "value": "<API Key>"
+                  }
+                ],
+                "method": "POST",
+                "body": {}
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "https://api.promptlayer.com",
+      "key": "baseUrl"
+    }
+  ],
+  "auth": {
+    "type": "apikey",
+    "apikey": [
+      {
+        "key": "key",
+        "value": "X-API-KEY"
+      },
+      {
+        "key": "value",
+        "value": "{{apiKey}}"
+      },
+      {
+        "key": "in",
+        "value": "header"
+      }
+    ]
+  },
+  "info": {
+    "_postman_id": "d860fb77-c09e-4a3b-a7d0-2a5279b105a2",
+    "name": "PromptLayer Evaluations & Datasets Spans & Traces API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "REST API for PromptLayer, a prompt engineering, prompt management, and LLM observability platform. The API logs and tracks LLM requests, manages a versioned prompt registry with release labels, ingests OpenTelemetry-style spans and traces, and runs evaluations against datasets. All requests are authenticated with an `X-API-KEY` header. Note: some legacy tracking endpoints are served under the `/rest` path prefix while newer endpoints are served at the API root.\n\nContact Support:\n Name: PromptLayer Support\n Email: hello@promptlayer.com",
+      "type": "text/plain"
+    }
+  }
+}

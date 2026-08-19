@@ -1,0 +1,523 @@
+{
+  "item": [
+    {
+      "id": "31be0aff-c13e-4374-acc8-6c68fa30f886",
+      "name": "Prompt Registry",
+      "description": {
+        "content": "Retrieve and publish versioned prompt templates.",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "43f5924f-4f71-47bb-85f4-4344dc64ea7a",
+          "name": "Get a prompt template",
+          "request": {
+            "name": "Get a prompt template",
+            "description": {
+              "content": "Retrieves a prompt template by name or id, resolving an optional version or release label and optionally formatting it with provided input variables for a given provider and model.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "prompt-templates",
+                ":identifier"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "identifier",
+                  "description": "(Required) The prompt name or prompt template id."
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"version\": \"<integer>\",\n  \"label\": \"<string>\",\n  \"provider\": \"<string>\",\n  \"input_variables\": {\n    \"key_0\": \"<string>\",\n    \"key_1\": \"<string>\"\n  },\n  \"model\": \"<string>\",\n  \"model_parameter_overrides\": {\n    \"key_0\": 9300\n  }\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "3f015591-bc2d-4b26-bc37-1e33259d5e8b",
+              "name": "Prompt template",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "prompt-templates",
+                    ":identifier"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "identifier",
+                      "description": "(Required) The prompt name or prompt template id."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-API-KEY",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"version\": \"<integer>\",\n  \"label\": \"<string>\",\n  \"provider\": \"<string>\",\n  \"input_variables\": {\n    \"key_0\": \"<string>\"\n  },\n  \"model\": \"<string>\",\n  \"model_parameter_overrides\": {\n    \"key_0\": 4757,\n    \"key_1\": \"string\"\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"id\": 1793,\n  \"prompt_name\": \"string\",\n  \"prompt_template\": {\n    \"key_0\": 2936.91031201035\n  },\n  \"metadata\": {\n    \"key_0\": 6113.301907313231\n  },\n  \"commit_message\": \"string\",\n  \"llm_kwargs\": {\n    \"key_0\": 73.46867212554287\n  },\n  \"version\": 5104\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "364473c2-25aa-48b9-91c2-c122a9b65077",
+              "name": "Unauthorized",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "prompt-templates",
+                    ":identifier"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "identifier",
+                      "description": "(Required) The prompt name or prompt template id."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-API-KEY",
+                    "value": "<API Key>"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"version\": \"<integer>\",\n  \"label\": \"<string>\",\n  \"provider\": \"<string>\",\n  \"input_variables\": {\n    \"key_0\": \"<string>\"\n  },\n  \"model\": \"<string>\",\n  \"model_parameter_overrides\": {\n    \"key_0\": 4757,\n    \"key_1\": \"string\"\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "2205d3ed-7484-440c-87aa-6240770b3106",
+              "name": "Template not found",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "prompt-templates",
+                    ":identifier"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "identifier",
+                      "description": "(Required) The prompt name or prompt template id."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-API-KEY",
+                    "value": "<API Key>"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"version\": \"<integer>\",\n  \"label\": \"<string>\",\n  \"provider\": \"<string>\",\n  \"input_variables\": {\n    \"key_0\": \"<string>\"\n  },\n  \"model\": \"<string>\",\n  \"model_parameter_overrides\": {\n    \"key_0\": 4757,\n    \"key_1\": \"string\"\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "63b7ec4d-f005-42bb-ad1b-f4167428afd2",
+          "name": "Publish a prompt template version",
+          "request": {
+            "name": "Publish a prompt template version",
+            "description": {
+              "content": "Creates a new prompt template (or a new version of an existing one), optionally assigning release labels and external ids.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "rest",
+                "prompt-templates"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"prompt_template\": {\n    \"prompt_name\": \"<string>\",\n    \"tags\": [\n      \"<string>\",\n      \"<string>\"\n    ],\n    \"folder_id\": \"<integer>\",\n    \"workspace_id\": \"<integer>\"\n  },\n  \"prompt_version\": {\n    \"prompt_template\": {\n      \"key_0\": \"string\"\n    },\n    \"commit_message\": \"<string>\",\n    \"metadata\": {\n      \"key_0\": 4944\n    }\n  },\n  \"release_labels\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"external_ids\": [\n    {\n      \"source\": \"<string>\",\n      \"external_id\": \"<string>\"\n    },\n    {\n      \"source\": \"<string>\",\n      \"external_id\": \"<string>\"\n    }\n  ]\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "b32f879d-db7a-47fe-8718-c466f3a37dcb",
+              "name": "Prompt template published",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "rest",
+                    "prompt-templates"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-API-KEY",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"prompt_template\": {\n    \"prompt_name\": \"<string>\",\n    \"tags\": [\n      \"<string>\",\n      \"<string>\"\n    ],\n    \"folder_id\": \"<integer>\",\n    \"workspace_id\": \"<integer>\"\n  },\n  \"prompt_version\": {\n    \"prompt_template\": {\n      \"key_0\": 7636\n    },\n    \"commit_message\": \"<string>\",\n    \"metadata\": {\n      \"key_0\": false\n    }\n  },\n  \"release_labels\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"external_ids\": [\n    {\n      \"source\": \"<string>\",\n      \"external_id\": \"<string>\"\n    },\n    {\n      \"source\": \"<string>\",\n      \"external_id\": \"<string>\"\n    }\n  ]\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"id\": 6328,\n  \"prompt_name\": \"string\",\n  \"prompt_version_id\": 8170,\n  \"version_number\": 8517,\n  \"tags\": [\n    \"string\",\n    \"string\"\n  ],\n  \"release_labels\": [\n    \"string\",\n    \"string\"\n  ],\n  \"prompt_template\": {\n    \"key_0\": 1099,\n    \"key_1\": 2566\n  },\n  \"metadata\": {\n    \"key_0\": true,\n    \"key_1\": 4597\n  },\n  \"commit_message\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "be02d94c-4312-4a4a-b1c1-d8a054ee19c2",
+              "name": "Unauthorized",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "rest",
+                    "prompt-templates"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-API-KEY",
+                    "value": "<API Key>"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"prompt_template\": {\n    \"prompt_name\": \"<string>\",\n    \"tags\": [\n      \"<string>\",\n      \"<string>\"\n    ],\n    \"folder_id\": \"<integer>\",\n    \"workspace_id\": \"<integer>\"\n  },\n  \"prompt_version\": {\n    \"prompt_template\": {\n      \"key_0\": 7636\n    },\n    \"commit_message\": \"<string>\",\n    \"metadata\": {\n      \"key_0\": false\n    }\n  },\n  \"release_labels\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"external_ids\": [\n    {\n      \"source\": \"<string>\",\n      \"external_id\": \"<string>\"\n    },\n    {\n      \"source\": \"<string>\",\n      \"external_id\": \"<string>\"\n    }\n  ]\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "430c51cc-742d-469d-a1bf-2d16e28aabc1",
+              "name": "External id conflict",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "rest",
+                    "prompt-templates"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-API-KEY",
+                    "value": "<API Key>"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"prompt_template\": {\n    \"prompt_name\": \"<string>\",\n    \"tags\": [\n      \"<string>\",\n      \"<string>\"\n    ],\n    \"folder_id\": \"<integer>\",\n    \"workspace_id\": \"<integer>\"\n  },\n  \"prompt_version\": {\n    \"prompt_template\": {\n      \"key_0\": 7636\n    },\n    \"commit_message\": \"<string>\",\n    \"metadata\": {\n      \"key_0\": false\n    }\n  },\n  \"release_labels\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"external_ids\": [\n    {\n      \"source\": \"<string>\",\n      \"external_id\": \"<string>\"\n    },\n    {\n      \"source\": \"<string>\",\n      \"external_id\": \"<string>\"\n    }\n  ]\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Conflict",
+              "code": 409,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "224c896e-b10f-404b-ae98-8c612a5bbbaa",
+              "name": "Validation error",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "rest",
+                    "prompt-templates"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-API-KEY",
+                    "value": "<API Key>"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"prompt_template\": {\n    \"prompt_name\": \"<string>\",\n    \"tags\": [\n      \"<string>\",\n      \"<string>\"\n    ],\n    \"folder_id\": \"<integer>\",\n    \"workspace_id\": \"<integer>\"\n  },\n  \"prompt_version\": {\n    \"prompt_template\": {\n      \"key_0\": 7636\n    },\n    \"commit_message\": \"<string>\",\n    \"metadata\": {\n      \"key_0\": false\n    }\n  },\n  \"release_labels\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"external_ids\": [\n    {\n      \"source\": \"<string>\",\n      \"external_id\": \"<string>\"\n    },\n    {\n      \"source\": \"<string>\",\n      \"external_id\": \"<string>\"\n    }\n  ]\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Unprocessable Entity (WebDAV) (RFC 4918)",
+              "code": 422,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "https://api.promptlayer.com",
+      "key": "baseUrl"
+    }
+  ],
+  "auth": {
+    "type": "apikey",
+    "apikey": [
+      {
+        "key": "key",
+        "value": "X-API-KEY"
+      },
+      {
+        "key": "value",
+        "value": "{{apiKey}}"
+      },
+      {
+        "key": "in",
+        "value": "header"
+      }
+    ]
+  },
+  "info": {
+    "_postman_id": "295f543c-a8f8-4ae8-955d-8af21475b7e0",
+    "name": "PromptLayer Evaluations & Datasets Prompt Registry API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "REST API for PromptLayer, a prompt engineering, prompt management, and LLM observability platform. The API logs and tracks LLM requests, manages a versioned prompt registry with release labels, ingests OpenTelemetry-style spans and traces, and runs evaluations against datasets. All requests are authenticated with an `X-API-KEY` header. Note: some legacy tracking endpoints are served under the `/rest` path prefix while newer endpoints are served at the API root.\n\nContact Support:\n Name: PromptLayer Support\n Email: hello@promptlayer.com",
+      "type": "text/plain"
+    }
+  }
+}
