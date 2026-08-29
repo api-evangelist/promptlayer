@@ -6,6 +6,18 @@ description: PromptLayer is a prompt engineering, prompt management, and LLM obs
   platform. Its REST API logs and tracks LLM requests, manages a versioned prompt
   registry with release labels, ingests OpenTelemetry-style spans and traces, and runs
   evaluations and datasets so teams can monitor, debug, and improve their LLM applications.
+deliveryModel:
+  model: saas
+  open_source: false
+  commercial: true
+  callable_host: true
+  label: Hosted service · you call their endpoint
+  confidence: high
+  source:
+  - openapi
+  - pricing
+  generated: '2026-08-28'
+  method: derived
 accessModel:
   pricing: freemium
   onboarding: self-serve
