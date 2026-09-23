@@ -1,4 +1,4 @@
-openapi: 3.0.1
+openapi: 3.2.0
 info:
   title: PromptLayer Evaluations & Datasets API
   description: 'REST API for PromptLayer, a prompt engineering, prompt management, and LLM observability platform. The API logs and tracks LLM requests, manages a versioned prompt registry with release labels, ingests OpenTelemetry-style spans and traces, and runs evaluations against datasets. All requests are authenticated with an `X-API-KEY` header. Note: some legacy tracking endpoints are served under the `/rest` path prefix while newer endpoints are served at the API root.'
@@ -175,15 +175,6 @@ components:
           type: integer
         workspace_id:
           type: integer
-    EvaluationList:
-      type: object
-      properties:
-        items:
-          type: array
-          items:
-            $ref: '#/components/schemas/Evaluation'
-        total:
-          type: integer
     Dataset:
       type: object
       properties:
@@ -206,22 +197,6 @@ components:
           type: integer
         failed:
           type: integer
-    SuccessMessage:
-      type: object
-      properties:
-        success:
-          type: boolean
-        message:
-          type: string
-    DatasetList:
-      type: object
-      properties:
-        items:
-          type: array
-          items:
-            $ref: '#/components/schemas/Dataset'
-        total:
-          type: integer
     Evaluation:
       type: object
       properties:
@@ -238,6 +213,31 @@ components:
         created_at:
           type: string
           format: date-time
+    SuccessMessage:
+      type: object
+      properties:
+        success:
+          type: boolean
+        message:
+          type: string
+    DatasetList:
+      type: object
+      properties:
+        items:
+          type: array
+          items:
+            $ref: '#/components/schemas/Dataset'
+        total:
+          type: integer
+    EvaluationList:
+      type: object
+      properties:
+        items:
+          type: array
+          items:
+            $ref: '#/components/schemas/Evaluation'
+        total:
+          type: integer
   securitySchemes:
     ApiKeyAuth:
       type: apiKey

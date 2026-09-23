@@ -1,6 +1,6 @@
-openapi: 3.0.1
+openapi: 3.2.0
 info:
-  title: PromptLayer Evaluations & Datasets Prompt Registry API
+  title: PromptLayer Prompt Registry API
   description: 'REST API for PromptLayer, a prompt engineering, prompt management, and LLM observability platform. The API logs and tracks LLM requests, manages a versioned prompt registry with release labels, ingests OpenTelemetry-style spans and traces, and runs evaluations against datasets. All requests are authenticated with an `X-API-KEY` header. Note: some legacy tracking endpoints are served under the `/rest` path prefix while newer endpoints are served at the API root.'
   termsOfService: https://www.promptlayer.com/terms-of-service
   contact:
@@ -74,10 +74,25 @@ paths:
           description: Validation error
 components:
   schemas:
-    PromptBlueprint:
+    PromptTemplate:
       type: object
-      description: Prompt Blueprint payload, either a chat prompt (messages array) or a completion prompt (content string). Provider-agnostic representation.
-      additionalProperties: true
+      properties:
+        id:
+          type: integer
+        prompt_name:
+          type: string
+        prompt_template:
+          $ref: '#/components/schemas/PromptBlueprint'
+        metadata:
+          type: object
+          additionalProperties: true
+        commit_message:
+          type: string
+        llm_kwargs:
+          type: object
+          additionalProperties: true
+        version:
+          type: integer
     PublishPromptTemplateRequest:
       type: object
       required:
@@ -125,6 +140,10 @@ components:
                 type: string
               external_id:
                 type: string
+    PromptBlueprint:
+      type: object
+      description: Prompt Blueprint payload, either a chat prompt (messages array) or a completion prompt (content string). Provider-agnostic representation.
+      additionalProperties: true
     PublishPromptTemplateResponse:
       type: object
       properties:
@@ -174,25 +193,6 @@ components:
         model_parameter_overrides:
           type: object
           additionalProperties: true
-    PromptTemplate:
-      type: object
-      properties:
-        id:
-          type: integer
-        prompt_name:
-          type: string
-        prompt_template:
-          $ref: '#/components/schemas/PromptBlueprint'
-        metadata:
-          type: object
-          additionalProperties: true
-        commit_message:
-          type: string
-        llm_kwargs:
-          type: object
-          additionalProperties: true
-        version:
-          type: integer
   securitySchemes:
     ApiKeyAuth:
       type: apiKey

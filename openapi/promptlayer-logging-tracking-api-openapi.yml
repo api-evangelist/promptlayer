@@ -1,6 +1,6 @@
-openapi: 3.0.1
+openapi: 3.2.0
 info:
-  title: PromptLayer Evaluations & Datasets Logging & Tracking API
+  title: PromptLayer Logging & Tracking API
   description: 'REST API for PromptLayer, a prompt engineering, prompt management, and LLM observability platform. The API logs and tracks LLM requests, manages a versioned prompt registry with release labels, ingests OpenTelemetry-style spans and traces, and runs evaluations against datasets. All requests are authenticated with an `X-API-KEY` header. Note: some legacy tracking endpoints are served under the `/rest` path prefix while newer endpoints are served at the API root.'
   termsOfService: https://www.promptlayer.com/terms-of-service
   contact:
@@ -121,12 +121,70 @@ components:
       type: object
       description: Prompt Blueprint payload, either a chat prompt (messages array) or a completion prompt (content string). Provider-agnostic representation.
       additionalProperties: true
+    TrackMetadataRequest:
+      type: object
+      required:
+      - request_id
+      - metadata
+      properties:
+        request_id:
+          oneOf:
+          - type: integer
+          - type: string
+        metadata:
+          type: object
+          additionalProperties: true
+    LogRequestResponse:
+      type: object
+      properties:
+        id:
+          type: integer
+        prompt_version:
+          type:
+          - object
+          - 'null'
+          additionalProperties: true
+        status:
+          type: string
+          enum:
+          - SUCCESS
+          - WARNING
+          - ERROR
+        error_type:
+          type:
+          - string
+          - 'null'
+        error_message:
+          type:
+          - string
+          - 'null'
     SuccessMessage:
       type: object
       properties:
         success:
           type: boolean
         message:
+          type: string
+    TrackPromptRequest:
+      type: object
+      required:
+      - prompt_name
+      - request_id
+      properties:
+        prompt_name:
+          type: string
+        request_id:
+          oneOf:
+          - type: integer
+          - type: string
+        prompt_input_variables:
+          type: object
+          additionalProperties: true
+        version:
+          oneOf:
+          - type: integer
+          - type: string
+        label:
           type: string
     TrackScoreRequest:
       type: object
@@ -143,40 +201,6 @@ components:
         name:
           type: string
           default: default
-    LogRequestResponse:
-      type: object
-      properties:
-        id:
-          type: integer
-        prompt_version:
-          type: object
-          nullable: true
-          additionalProperties: true
-        status:
-          type: string
-          enum:
-          - SUCCESS
-          - WARNING
-          - ERROR
-        error_type:
-          type: string
-          nullable: true
-        error_message:
-          type: string
-          nullable: true
-    TrackMetadataRequest:
-      type: object
-      required:
-      - request_id
-      - metadata
-      properties:
-        request_id:
-          oneOf:
-          - type: integer
-          - type: string
-        metadata:
-          type: object
-          additionalProperties: true
     LogRequest:
       type: object
       required:
@@ -240,28 +264,6 @@ components:
           type: integer
           minimum: 0
           maximum: 100
-    TrackPromptRequest:
-      type: object
-      required:
-      - prompt_name
-      - request_id
-      properties:
-        prompt_name:
-          type: string
-        request_id:
-          oneOf:
-          - type: integer
-          - type: string
-        prompt_input_variables:
-          type: object
-          additionalProperties: true
-        version:
-          oneOf:
-          - type: integer
-          - type: string
-          nullable: true
-        label:
-          type: string
   securitySchemes:
     ApiKeyAuth:
       type: apiKey

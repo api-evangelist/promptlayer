@@ -1,6 +1,6 @@
-openapi: 3.0.1
+openapi: 3.2.0
 info:
-  title: PromptLayer Evaluations & Datasets Spans & Traces API
+  title: PromptLayer Spans & Traces API
   description: 'REST API for PromptLayer, a prompt engineering, prompt management, and LLM observability platform. The API logs and tracks LLM requests, manages a versioned prompt registry with release labels, ingests OpenTelemetry-style spans and traces, and runs evaluations against datasets. All requests are authenticated with an `X-API-KEY` header. Note: some legacy tracking endpoints are served under the `/rest` path prefix while newer endpoints are served at the API root.'
   termsOfService: https://www.promptlayer.com/terms-of-service
   contact:
@@ -147,8 +147,9 @@ components:
           - SpanKind.PRODUCER
           - SpanKind.SERVER
         parent_id:
-          type: string
-          nullable: true
+          type:
+          - string
+          - 'null'
         start_time:
           type: integer
           description: Start time in nanoseconds.
@@ -165,8 +166,9 @@ components:
               - StatusCode.ERROR
               - StatusCode.UNSET
             description:
-              type: string
-              nullable: true
+              type:
+              - string
+              - 'null'
         attributes:
           type: object
           additionalProperties: true
@@ -180,18 +182,6 @@ components:
               type: string
         log_request:
           $ref: '#/components/schemas/LogRequest'
-    SpansBulkRequest:
-      type: object
-      required:
-      - spans
-      properties:
-        spans:
-          type: array
-          items:
-            $ref: '#/components/schemas/Span'
-        close_after:
-          type: boolean
-          default: false
     SuccessMessage:
       type: object
       properties:
@@ -225,18 +215,21 @@ components:
               span_id:
                 type: string
         rejected_span_ids:
-          type: array
-          nullable: true
+          type:
+          - array
+          - 'null'
           items:
             type: string
         rejected_trace_ids:
-          type: array
-          nullable: true
+          type:
+          - array
+          - 'null'
           items:
             type: string
         rejection_reason:
-          type: string
-          nullable: true
+          type:
+          - string
+          - 'null'
     LogRequest:
       type: object
       required:
@@ -300,6 +293,18 @@ components:
           type: integer
           minimum: 0
           maximum: 100
+    SpansBulkRequest:
+      type: object
+      required:
+      - spans
+      properties:
+        spans:
+          type: array
+          items:
+            $ref: '#/components/schemas/Span'
+        close_after:
+          type: boolean
+          default: false
   securitySchemes:
     ApiKeyAuth:
       type: apiKey
