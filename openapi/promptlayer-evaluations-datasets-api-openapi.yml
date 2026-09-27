@@ -175,17 +175,6 @@ components:
           type: integer
         workspace_id:
           type: integer
-    Dataset:
-      type: object
-      properties:
-        id:
-          type: integer
-        name:
-          type: string
-        workspace_id:
-          type: integer
-        row_count:
-          type: integer
     EvaluationScore:
       type: object
       properties:
@@ -196,6 +185,17 @@ components:
         passed:
           type: integer
         failed:
+          type: integer
+    Dataset:
+      type: object
+      properties:
+        id:
+          type: integer
+        name:
+          type: string
+        workspace_id:
+          type: integer
+        row_count:
           type: integer
     Evaluation:
       type: object
@@ -213,13 +213,6 @@ components:
         created_at:
           type: string
           format: date-time
-    SuccessMessage:
-      type: object
-      properties:
-        success:
-          type: boolean
-        message:
-          type: string
     DatasetList:
       type: object
       properties:
@@ -229,6 +222,13 @@ components:
             $ref: '#/components/schemas/Dataset'
         total:
           type: integer
+    SuccessMessage:
+      type: object
+      properties:
+        success:
+          type: boolean
+        message:
+          type: string
     EvaluationList:
       type: object
       properties:

@@ -111,19 +111,6 @@ components:
       type: object
       description: Prompt Blueprint payload, either a chat prompt (messages array) or a completion prompt (content string). Provider-agnostic representation.
       additionalProperties: true
-    Trace:
-      type: object
-      properties:
-        id:
-          type: string
-        name:
-          type: string
-        spans:
-          type: array
-          items:
-            $ref: '#/components/schemas/Span'
-        closed:
-          type: boolean
     Span:
       type: object
       properties:
@@ -182,54 +169,6 @@ components:
               type: string
         log_request:
           $ref: '#/components/schemas/LogRequest'
-    SuccessMessage:
-      type: object
-      properties:
-        success:
-          type: boolean
-        message:
-          type: string
-    SpansBulkResponse:
-      type: object
-      properties:
-        success:
-          type: boolean
-        spans:
-          type: array
-          items:
-            type: object
-            properties:
-              id:
-                type: integer
-              name:
-                type: string
-              span_id:
-                type: string
-        request_logs:
-          type: array
-          items:
-            type: object
-            properties:
-              id:
-                type: integer
-              span_id:
-                type: string
-        rejected_span_ids:
-          type:
-          - array
-          - 'null'
-          items:
-            type: string
-        rejected_trace_ids:
-          type:
-          - array
-          - 'null'
-          items:
-            type: string
-        rejection_reason:
-          type:
-          - string
-          - 'null'
     LogRequest:
       type: object
       required:
@@ -305,6 +244,67 @@ components:
         close_after:
           type: boolean
           default: false
+    Trace:
+      type: object
+      properties:
+        id:
+          type: string
+        name:
+          type: string
+        spans:
+          type: array
+          items:
+            $ref: '#/components/schemas/Span'
+        closed:
+          type: boolean
+    SuccessMessage:
+      type: object
+      properties:
+        success:
+          type: boolean
+        message:
+          type: string
+    SpansBulkResponse:
+      type: object
+      properties:
+        success:
+          type: boolean
+        spans:
+          type: array
+          items:
+            type: object
+            properties:
+              id:
+                type: integer
+              name:
+                type: string
+              span_id:
+                type: string
+        request_logs:
+          type: array
+          items:
+            type: object
+            properties:
+              id:
+                type: integer
+              span_id:
+                type: string
+        rejected_span_ids:
+          type:
+          - array
+          - 'null'
+          items:
+            type: string
+        rejected_trace_ids:
+          type:
+          - array
+          - 'null'
+          items:
+            type: string
+        rejection_reason:
+          type:
+          - string
+          - 'null'
   securitySchemes:
     ApiKeyAuth:
       type: apiKey
