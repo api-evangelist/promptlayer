@@ -164,39 +164,6 @@ paths:
           description: Unauthorized
 components:
   schemas:
-    CreateEvaluationRequest:
-      type: object
-      required:
-      - name
-      properties:
-        name:
-          type: string
-        dataset_id:
-          type: integer
-        workspace_id:
-          type: integer
-    EvaluationScore:
-      type: object
-      properties:
-        id:
-          type: integer
-        score:
-          type: number
-        passed:
-          type: integer
-        failed:
-          type: integer
-    Dataset:
-      type: object
-      properties:
-        id:
-          type: integer
-        name:
-          type: string
-        workspace_id:
-          type: integer
-        row_count:
-          type: integer
     Evaluation:
       type: object
       properties:
@@ -213,14 +180,16 @@ components:
         created_at:
           type: string
           format: date-time
-    DatasetList:
+    EvaluationScore:
       type: object
       properties:
-        items:
-          type: array
-          items:
-            $ref: '#/components/schemas/Dataset'
-        total:
+        id:
+          type: integer
+        score:
+          type: number
+        passed:
+          type: integer
+        failed:
           type: integer
     SuccessMessage:
       type: object
@@ -237,6 +206,37 @@ components:
           items:
             $ref: '#/components/schemas/Evaluation'
         total:
+          type: integer
+    Dataset:
+      type: object
+      properties:
+        id:
+          type: integer
+        name:
+          type: string
+        workspace_id:
+          type: integer
+        row_count:
+          type: integer
+    DatasetList:
+      type: object
+      properties:
+        items:
+          type: array
+          items:
+            $ref: '#/components/schemas/Dataset'
+        total:
+          type: integer
+    CreateEvaluationRequest:
+      type: object
+      required:
+      - name
+      properties:
+        name:
+          type: string
+        dataset_id:
+          type: integer
+        workspace_id:
           type: integer
   securitySchemes:
     ApiKeyAuth:
