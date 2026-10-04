@@ -74,10 +74,78 @@ paths:
           description: Validation error
 components:
   schemas:
+    PublishPromptTemplateResponse:
+      type: object
+      properties:
+        id:
+          type: integer
+        prompt_name:
+          type: string
+        prompt_version_id:
+          type: integer
+        version_number:
+          type: integer
+        tags:
+          type: array
+          items:
+            type: string
+        release_labels:
+          type: array
+          items:
+            type: string
+        prompt_template:
+          $ref: '#/components/schemas/PromptBlueprint'
+        metadata:
+          type: object
+          additionalProperties: true
+        commit_message:
+          type: string
+    GetPromptTemplateRequest:
+      type: object
+      properties:
+        version:
+          type: integer
+          minimum: 1
+        label:
+          type: string
+          description: Release label such as "prod" or "staging".
+        provider:
+          type: string
+          enum:
+          - openai
+          - anthropic
+        input_variables:
+          type: object
+          additionalProperties:
+            type: string
+        model:
+          type: string
+        model_parameter_overrides:
+          type: object
+          additionalProperties: true
     PromptBlueprint:
       type: object
       description: Prompt Blueprint payload, either a chat prompt (messages array) or a completion prompt (content string). Provider-agnostic representation.
       additionalProperties: true
+    PromptTemplate:
+      type: object
+      properties:
+        id:
+          type: integer
+        prompt_name:
+          type: string
+        prompt_template:
+          $ref: '#/components/schemas/PromptBlueprint'
+        metadata:
+          type: object
+          additionalProperties: true
+        commit_message:
+          type: string
+        llm_kwargs:
+          type: object
+          additionalProperties: true
+        version:
+          type: integer
     PublishPromptTemplateRequest:
       type: object
       required:
@@ -125,74 +193,6 @@ components:
                 type: string
               external_id:
                 type: string
-    GetPromptTemplateRequest:
-      type: object
-      properties:
-        version:
-          type: integer
-          minimum: 1
-        label:
-          type: string
-          description: Release label such as "prod" or "staging".
-        provider:
-          type: string
-          enum:
-          - openai
-          - anthropic
-        input_variables:
-          type: object
-          additionalProperties:
-            type: string
-        model:
-          type: string
-        model_parameter_overrides:
-          type: object
-          additionalProperties: true
-    PublishPromptTemplateResponse:
-      type: object
-      properties:
-        id:
-          type: integer
-        prompt_name:
-          type: string
-        prompt_version_id:
-          type: integer
-        version_number:
-          type: integer
-        tags:
-          type: array
-          items:
-            type: string
-        release_labels:
-          type: array
-          items:
-            type: string
-        prompt_template:
-          $ref: '#/components/schemas/PromptBlueprint'
-        metadata:
-          type: object
-          additionalProperties: true
-        commit_message:
-          type: string
-    PromptTemplate:
-      type: object
-      properties:
-        id:
-          type: integer
-        prompt_name:
-          type: string
-        prompt_template:
-          $ref: '#/components/schemas/PromptBlueprint'
-        metadata:
-          type: object
-          additionalProperties: true
-        commit_message:
-          type: string
-        llm_kwargs:
-          type: object
-          additionalProperties: true
-        version:
-          type: integer
   securitySchemes:
     ApiKeyAuth:
       type: apiKey

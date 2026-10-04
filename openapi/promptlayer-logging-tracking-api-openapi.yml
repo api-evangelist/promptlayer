@@ -130,10 +130,6 @@ components:
         metadata:
           type: object
           additionalProperties: true
-    PromptBlueprint:
-      type: object
-      description: Prompt Blueprint payload, either a chat prompt (messages array) or a completion prompt (content string). Provider-agnostic representation.
-      additionalProperties: true
     TrackPromptRequest:
       type: object
       required:
@@ -155,52 +151,10 @@ components:
           - type: string
         label:
           type: string
-    LogRequestResponse:
+    PromptBlueprint:
       type: object
-      properties:
-        id:
-          type: integer
-        prompt_version:
-          type:
-          - object
-          - 'null'
-          additionalProperties: true
-        status:
-          type: string
-          enum:
-          - SUCCESS
-          - WARNING
-          - ERROR
-        error_type:
-          type:
-          - string
-          - 'null'
-        error_message:
-          type:
-          - string
-          - 'null'
-    SuccessMessage:
-      type: object
-      properties:
-        success:
-          type: boolean
-        message:
-          type: string
-    TrackScoreRequest:
-      type: object
-      required:
-      - request_id
-      - score
-      properties:
-        request_id:
-          type: integer
-        score:
-          type: integer
-          minimum: 0
-          maximum: 100
-        name:
-          type: string
-          default: default
+      description: Prompt Blueprint payload, either a chat prompt (messages array) or a completion prompt (content string). Provider-agnostic representation.
+      additionalProperties: true
     LogRequest:
       type: object
       required:
@@ -264,6 +218,52 @@ components:
           type: integer
           minimum: 0
           maximum: 100
+    LogRequestResponse:
+      type: object
+      properties:
+        id:
+          type: integer
+        prompt_version:
+          type:
+          - object
+          - 'null'
+          additionalProperties: true
+        status:
+          type: string
+          enum:
+          - SUCCESS
+          - WARNING
+          - ERROR
+        error_type:
+          type:
+          - string
+          - 'null'
+        error_message:
+          type:
+          - string
+          - 'null'
+    TrackScoreRequest:
+      type: object
+      required:
+      - request_id
+      - score
+      properties:
+        request_id:
+          type: integer
+        score:
+          type: integer
+          minimum: 0
+          maximum: 100
+        name:
+          type: string
+          default: default
+    SuccessMessage:
+      type: object
+      properties:
+        success:
+          type: boolean
+        message:
+          type: string
   securitySchemes:
     ApiKeyAuth:
       type: apiKey

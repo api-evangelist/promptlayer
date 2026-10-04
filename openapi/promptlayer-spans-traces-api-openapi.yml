@@ -107,68 +107,6 @@ paths:
           description: Not found
 components:
   schemas:
-    PromptBlueprint:
-      type: object
-      description: Prompt Blueprint payload, either a chat prompt (messages array) or a completion prompt (content string). Provider-agnostic representation.
-      additionalProperties: true
-    Span:
-      type: object
-      properties:
-        name:
-          type: string
-        context:
-          type: object
-          properties:
-            trace_id:
-              type: string
-            span_id:
-              type: string
-            trace_state:
-              type: string
-        kind:
-          type: string
-          enum:
-          - SpanKind.CLIENT
-          - SpanKind.CONSUMER
-          - SpanKind.INTERNAL
-          - SpanKind.PRODUCER
-          - SpanKind.SERVER
-        parent_id:
-          type:
-          - string
-          - 'null'
-        start_time:
-          type: integer
-          description: Start time in nanoseconds.
-        end_time:
-          type: integer
-          description: End time in nanoseconds.
-        status:
-          type: object
-          properties:
-            status_code:
-              type: string
-              enum:
-              - StatusCode.OK
-              - StatusCode.ERROR
-              - StatusCode.UNSET
-            description:
-              type:
-              - string
-              - 'null'
-        attributes:
-          type: object
-          additionalProperties: true
-        resource:
-          type: object
-          properties:
-            attributes:
-              type: object
-              additionalProperties: true
-            schema_url:
-              type: string
-        log_request:
-          $ref: '#/components/schemas/LogRequest'
     Trace:
       type: object
       properties:
@@ -182,66 +120,10 @@ components:
             $ref: '#/components/schemas/Span'
         closed:
           type: boolean
-    SuccessMessage:
+    PromptBlueprint:
       type: object
-      properties:
-        success:
-          type: boolean
-        message:
-          type: string
-    SpansBulkResponse:
-      type: object
-      properties:
-        success:
-          type: boolean
-        spans:
-          type: array
-          items:
-            type: object
-            properties:
-              id:
-                type: integer
-              name:
-                type: string
-              span_id:
-                type: string
-        request_logs:
-          type: array
-          items:
-            type: object
-            properties:
-              id:
-                type: integer
-              span_id:
-                type: string
-        rejected_span_ids:
-          type:
-          - array
-          - 'null'
-          items:
-            type: string
-        rejected_trace_ids:
-          type:
-          - array
-          - 'null'
-          items:
-            type: string
-        rejection_reason:
-          type:
-          - string
-          - 'null'
-    SpansBulkRequest:
-      type: object
-      required:
-      - spans
-      properties:
-        spans:
-          type: array
-          items:
-            $ref: '#/components/schemas/Span'
-        close_after:
-          type: boolean
-          default: false
+      description: Prompt Blueprint payload, either a chat prompt (messages array) or a completion prompt (content string). Provider-agnostic representation.
+      additionalProperties: true
     LogRequest:
       type: object
       required:
@@ -305,6 +187,124 @@ components:
           type: integer
           minimum: 0
           maximum: 100
+    SuccessMessage:
+      type: object
+      properties:
+        success:
+          type: boolean
+        message:
+          type: string
+    SpansBulkRequest:
+      type: object
+      required:
+      - spans
+      properties:
+        spans:
+          type: array
+          items:
+            $ref: '#/components/schemas/Span'
+        close_after:
+          type: boolean
+          default: false
+    Span:
+      type: object
+      properties:
+        name:
+          type: string
+        context:
+          type: object
+          properties:
+            trace_id:
+              type: string
+            span_id:
+              type: string
+            trace_state:
+              type: string
+        kind:
+          type: string
+          enum:
+          - SpanKind.CLIENT
+          - SpanKind.CONSUMER
+          - SpanKind.INTERNAL
+          - SpanKind.PRODUCER
+          - SpanKind.SERVER
+        parent_id:
+          type:
+          - string
+          - 'null'
+        start_time:
+          type: integer
+          description: Start time in nanoseconds.
+        end_time:
+          type: integer
+          description: End time in nanoseconds.
+        status:
+          type: object
+          properties:
+            status_code:
+              type: string
+              enum:
+              - StatusCode.OK
+              - StatusCode.ERROR
+              - StatusCode.UNSET
+            description:
+              type:
+              - string
+              - 'null'
+        attributes:
+          type: object
+          additionalProperties: true
+        resource:
+          type: object
+          properties:
+            attributes:
+              type: object
+              additionalProperties: true
+            schema_url:
+              type: string
+        log_request:
+          $ref: '#/components/schemas/LogRequest'
+    SpansBulkResponse:
+      type: object
+      properties:
+        success:
+          type: boolean
+        spans:
+          type: array
+          items:
+            type: object
+            properties:
+              id:
+                type: integer
+              name:
+                type: string
+              span_id:
+                type: string
+        request_logs:
+          type: array
+          items:
+            type: object
+            properties:
+              id:
+                type: integer
+              span_id:
+                type: string
+        rejected_span_ids:
+          type:
+          - array
+          - 'null'
+          items:
+            type: string
+        rejected_trace_ids:
+          type:
+          - array
+          - 'null'
+          items:
+            type: string
+        rejection_reason:
+          type:
+          - string
+          - 'null'
   securitySchemes:
     ApiKeyAuth:
       type: apiKey

@@ -164,6 +164,44 @@ paths:
           description: Unauthorized
 components:
   schemas:
+    EvaluationList:
+      type: object
+      properties:
+        items:
+          type: array
+          items:
+            $ref: '#/components/schemas/Evaluation'
+        total:
+          type: integer
+    CreateEvaluationRequest:
+      type: object
+      required:
+      - name
+      properties:
+        name:
+          type: string
+        dataset_id:
+          type: integer
+        workspace_id:
+          type: integer
+    SuccessMessage:
+      type: object
+      properties:
+        success:
+          type: boolean
+        message:
+          type: string
+    EvaluationScore:
+      type: object
+      properties:
+        id:
+          type: integer
+        score:
+          type: number
+        passed:
+          type: integer
+        failed:
+          type: integer
     Evaluation:
       type: object
       properties:
@@ -180,31 +218,13 @@ components:
         created_at:
           type: string
           format: date-time
-    EvaluationScore:
-      type: object
-      properties:
-        id:
-          type: integer
-        score:
-          type: number
-        passed:
-          type: integer
-        failed:
-          type: integer
-    SuccessMessage:
-      type: object
-      properties:
-        success:
-          type: boolean
-        message:
-          type: string
-    EvaluationList:
+    DatasetList:
       type: object
       properties:
         items:
           type: array
           items:
-            $ref: '#/components/schemas/Evaluation'
+            $ref: '#/components/schemas/Dataset'
         total:
           type: integer
     Dataset:
@@ -217,26 +237,6 @@ components:
         workspace_id:
           type: integer
         row_count:
-          type: integer
-    DatasetList:
-      type: object
-      properties:
-        items:
-          type: array
-          items:
-            $ref: '#/components/schemas/Dataset'
-        total:
-          type: integer
-    CreateEvaluationRequest:
-      type: object
-      required:
-      - name
-      properties:
-        name:
-          type: string
-        dataset_id:
-          type: integer
-        workspace_id:
           type: integer
   securitySchemes:
     ApiKeyAuth:
