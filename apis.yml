@@ -163,6 +163,8 @@ apis:
   - type: APIReference
     url: https://docs.promptlayer.com/reference/spans-bulk
 common:
+- type: Pricing
+  url: https://www.promptlayer.com/pricing/
 - url: https://blog.promptlayer.com/rss/
   type: BlogRSS
 - type: AgenticAccess
