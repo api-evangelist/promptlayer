@@ -1,115 +1,20 @@
-generated: '2026-07-15'
+generated: '2026-09-23'
 method: generated
-source: openapi/promptlayer-openapi.yml
+source: openapi/promptlayer-evaluations-datasets-api-openapi.yml, openapi/promptlayer-logging-tracking-api-openapi.yml,
+  openapi/promptlayer-prompt-registry-api-openapi.yml, openapi/promptlayer-spans-traces-api-openapi.yml
 description: Recommended x-agentic-access execution contracts, classified heuristically from
   the OpenAPI. A governance starting point for exposing this API to AI agents — review and bind
   audience per deployment. See research/curity/agentic-governance/.
 summary:
   operations: 16
   by_action_class:
-    acting: 11
-    connected: 5
+    connected: 6
+    acting: 10
   by_consequence:
-    write: 11
-    read: 5
+    read: 6
+    write: 10
   human_in_the_loop_required: 0
 operations:
-- path: /log-request
-  method: post
-  operationId: logRequest
-  x-agentic-access:
-    action-class: acting
-    consequence: write
-    subject: required
-    audience: null
-    token:
-      max-ttl: 900
-    escalation:
-      human-in-the-loop: conditional
-      triggers:
-      - abnormal
-      - high-value
-    audit: required
-- path: /rest/track-prompt
-  method: post
-  operationId: trackPrompt
-  x-agentic-access:
-    action-class: acting
-    consequence: write
-    subject: required
-    audience: null
-    token:
-      max-ttl: 900
-    escalation:
-      human-in-the-loop: conditional
-      triggers:
-      - abnormal
-      - high-value
-    audit: required
-- path: /rest/track-score
-  method: post
-  operationId: trackScore
-  x-agentic-access:
-    action-class: acting
-    consequence: write
-    subject: required
-    audience: null
-    token:
-      max-ttl: 900
-    escalation:
-      human-in-the-loop: conditional
-      triggers:
-      - abnormal
-      - high-value
-    audit: required
-- path: /rest/track-metadata
-  method: post
-  operationId: trackMetadata
-  x-agentic-access:
-    action-class: acting
-    consequence: write
-    subject: required
-    audience: null
-    token:
-      max-ttl: 900
-    escalation:
-      human-in-the-loop: conditional
-      triggers:
-      - abnormal
-      - high-value
-    audit: required
-- path: /prompt-templates/{identifier}
-  method: post
-  operationId: getPromptTemplate
-  x-agentic-access:
-    action-class: acting
-    consequence: write
-    subject: required
-    audience: null
-    token:
-      max-ttl: 900
-    escalation:
-      human-in-the-loop: conditional
-      triggers:
-      - abnormal
-      - high-value
-    audit: required
-- path: /rest/prompt-templates
-  method: post
-  operationId: publishPromptTemplate
-  x-agentic-access:
-    action-class: acting
-    consequence: write
-    subject: required
-    audience: null
-    token:
-      max-ttl: 900
-    escalation:
-      human-in-the-loop: conditional
-      triggers:
-      - abnormal
-      - high-value
-    audit: required
 - path: /evaluations
   method: get
   operationId: listEvaluations
@@ -182,6 +87,96 @@ operations:
     token:
       max-ttl: 3600
     audit: none
+- path: /log-request
+  method: post
+  operationId: logRequest
+  x-agentic-access:
+    action-class: acting
+    consequence: write
+    subject: required
+    audience: null
+    token:
+      max-ttl: 900
+    escalation:
+      human-in-the-loop: conditional
+      triggers:
+      - abnormal
+      - high-value
+    audit: required
+- path: /rest/track-prompt
+  method: post
+  operationId: trackPrompt
+  x-agentic-access:
+    action-class: acting
+    consequence: write
+    subject: required
+    audience: null
+    token:
+      max-ttl: 900
+    escalation:
+      human-in-the-loop: conditional
+      triggers:
+      - abnormal
+      - high-value
+    audit: required
+- path: /rest/track-score
+  method: post
+  operationId: trackScore
+  x-agentic-access:
+    action-class: acting
+    consequence: write
+    subject: required
+    audience: null
+    token:
+      max-ttl: 900
+    escalation:
+      human-in-the-loop: conditional
+      triggers:
+      - abnormal
+      - high-value
+    audit: required
+- path: /rest/track-metadata
+  method: post
+  operationId: trackMetadata
+  x-agentic-access:
+    action-class: acting
+    consequence: write
+    subject: required
+    audience: null
+    token:
+      max-ttl: 900
+    escalation:
+      human-in-the-loop: conditional
+      triggers:
+      - abnormal
+      - high-value
+    audit: required
+- path: /prompt-templates/{identifier}
+  method: post
+  operationId: getPromptTemplate
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /rest/prompt-templates
+  method: post
+  operationId: publishPromptTemplate
+  x-agentic-access:
+    action-class: acting
+    consequence: write
+    subject: required
+    audience: null
+    token:
+      max-ttl: 900
+    escalation:
+      human-in-the-loop: conditional
+      triggers:
+      - abnormal
+      - high-value
+    audit: required
 - path: /spans-bulk
   method: post
   operationId: createSpansBulk
