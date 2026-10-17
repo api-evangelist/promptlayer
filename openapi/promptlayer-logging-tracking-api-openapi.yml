@@ -130,31 +130,13 @@ components:
         metadata:
           type: object
           additionalProperties: true
-    TrackPromptRequest:
+    SuccessMessage:
       type: object
-      required:
-      - prompt_name
-      - request_id
       properties:
-        prompt_name:
+        success:
+          type: boolean
+        message:
           type: string
-        request_id:
-          oneOf:
-          - type: integer
-          - type: string
-        prompt_input_variables:
-          type: object
-          additionalProperties: true
-        version:
-          oneOf:
-          - type: integer
-          - type: string
-        label:
-          type: string
-    PromptBlueprint:
-      type: object
-      description: Prompt Blueprint payload, either a chat prompt (messages array) or a completion prompt (content string). Provider-agnostic representation.
-      additionalProperties: true
     LogRequest:
       type: object
       required:
@@ -242,6 +224,31 @@ components:
           type:
           - string
           - 'null'
+    PromptBlueprint:
+      type: object
+      description: Prompt Blueprint payload, either a chat prompt (messages array) or a completion prompt (content string). Provider-agnostic representation.
+      additionalProperties: true
+    TrackPromptRequest:
+      type: object
+      required:
+      - prompt_name
+      - request_id
+      properties:
+        prompt_name:
+          type: string
+        request_id:
+          oneOf:
+          - type: integer
+          - type: string
+        prompt_input_variables:
+          type: object
+          additionalProperties: true
+        version:
+          oneOf:
+          - type: integer
+          - type: string
+        label:
+          type: string
     TrackScoreRequest:
       type: object
       required:
@@ -257,13 +264,6 @@ components:
         name:
           type: string
           default: default
-    SuccessMessage:
-      type: object
-      properties:
-        success:
-          type: boolean
-        message:
-          type: string
   securitySchemes:
     ApiKeyAuth:
       type: apiKey

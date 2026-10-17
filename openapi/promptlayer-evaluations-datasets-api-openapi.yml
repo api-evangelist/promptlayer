@@ -184,24 +184,6 @@ components:
           type: integer
         workspace_id:
           type: integer
-    SuccessMessage:
-      type: object
-      properties:
-        success:
-          type: boolean
-        message:
-          type: string
-    EvaluationScore:
-      type: object
-      properties:
-        id:
-          type: integer
-        score:
-          type: number
-        passed:
-          type: integer
-        failed:
-          type: integer
     Evaluation:
       type: object
       properties:
@@ -218,15 +200,13 @@ components:
         created_at:
           type: string
           format: date-time
-    DatasetList:
+    SuccessMessage:
       type: object
       properties:
-        items:
-          type: array
-          items:
-            $ref: '#/components/schemas/Dataset'
-        total:
-          type: integer
+        success:
+          type: boolean
+        message:
+          type: string
     Dataset:
       type: object
       properties:
@@ -237,6 +217,26 @@ components:
         workspace_id:
           type: integer
         row_count:
+          type: integer
+    EvaluationScore:
+      type: object
+      properties:
+        id:
+          type: integer
+        score:
+          type: number
+        passed:
+          type: integer
+        failed:
+          type: integer
+    DatasetList:
+      type: object
+      properties:
+        items:
+          type: array
+          items:
+            $ref: '#/components/schemas/Dataset'
+        total:
           type: integer
   securitySchemes:
     ApiKeyAuth:

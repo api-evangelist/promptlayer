@@ -107,23 +107,66 @@ paths:
           description: Not found
 components:
   schemas:
-    Trace:
+    SpansBulkResponse:
       type: object
       properties:
-        id:
+        success:
+          type: boolean
+        spans:
+          type: array
+          items:
+            type: object
+            properties:
+              id:
+                type: integer
+              name:
+                type: string
+              span_id:
+                type: string
+        request_logs:
+          type: array
+          items:
+            type: object
+            properties:
+              id:
+                type: integer
+              span_id:
+                type: string
+        rejected_span_ids:
+          type:
+          - array
+          - 'null'
+          items:
+            type: string
+        rejected_trace_ids:
+          type:
+          - array
+          - 'null'
+          items:
+            type: string
+        rejection_reason:
+          type:
+          - string
+          - 'null'
+    SuccessMessage:
+      type: object
+      properties:
+        success:
+          type: boolean
+        message:
           type: string
-        name:
-          type: string
+    SpansBulkRequest:
+      type: object
+      required:
+      - spans
+      properties:
         spans:
           type: array
           items:
             $ref: '#/components/schemas/Span'
-        closed:
+        close_after:
           type: boolean
-    PromptBlueprint:
-      type: object
-      description: Prompt Blueprint payload, either a chat prompt (messages array) or a completion prompt (content string). Provider-agnostic representation.
-      additionalProperties: true
+          default: false
     LogRequest:
       type: object
       required:
@@ -187,25 +230,23 @@ components:
           type: integer
           minimum: 0
           maximum: 100
-    SuccessMessage:
+    PromptBlueprint:
+      type: object
+      description: Prompt Blueprint payload, either a chat prompt (messages array) or a completion prompt (content string). Provider-agnostic representation.
+      additionalProperties: true
+    Trace:
       type: object
       properties:
-        success:
-          type: boolean
-        message:
+        id:
           type: string
-    SpansBulkRequest:
-      type: object
-      required:
-      - spans
-      properties:
+        name:
+          type: string
         spans:
           type: array
           items:
             $ref: '#/components/schemas/Span'
-        close_after:
+        closed:
           type: boolean
-          default: false
     Span:
       type: object
       properties:
@@ -264,47 +305,6 @@ components:
               type: string
         log_request:
           $ref: '#/components/schemas/LogRequest'
-    SpansBulkResponse:
-      type: object
-      properties:
-        success:
-          type: boolean
-        spans:
-          type: array
-          items:
-            type: object
-            properties:
-              id:
-                type: integer
-              name:
-                type: string
-              span_id:
-                type: string
-        request_logs:
-          type: array
-          items:
-            type: object
-            properties:
-              id:
-                type: integer
-              span_id:
-                type: string
-        rejected_span_ids:
-          type:
-          - array
-          - 'null'
-          items:
-            type: string
-        rejected_trace_ids:
-          type:
-          - array
-          - 'null'
-          items:
-            type: string
-        rejection_reason:
-          type:
-          - string
-          - 'null'
   securitySchemes:
     ApiKeyAuth:
       type: apiKey
